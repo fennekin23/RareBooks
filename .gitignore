@@ -1,0 +1,15 @@
+﻿obj
+bin
+csx
+rcf
+Release
+Debug
+packages
+*.suo
+*.cache
+*~
+*.user
+*.userprefs
+*.orig
+*.log
+*.dbmdl
