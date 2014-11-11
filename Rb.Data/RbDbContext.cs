@@ -12,6 +12,7 @@ namespace Rb.Data
         }
 
         public DbSet<Book> Books { get; set; }
+        public DbSet<Request> Requests { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

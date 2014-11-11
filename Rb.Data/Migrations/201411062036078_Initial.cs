@@ -4,6 +4,11 @@ namespace Rb.Data.Migrations
 {
     public partial class Initial : DbMigration
     {
+        public override void Down()
+        {
+            DropTable("dbo.Book");
+        }
+
         public override void Up()
         {
             CreateTable(
@@ -25,11 +30,6 @@ namespace Rb.Data.Migrations
                     Udk = c.String(),
                 })
                 .PrimaryKey(t => t.Id);
-        }
-
-        public override void Down()
-        {
-            DropTable("dbo.Book");
         }
     }
 }

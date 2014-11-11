@@ -37,6 +37,18 @@ namespace Rb.RareListParser
                 : Regex.Replace(element.Value.Trim(new[] {' ', '.', ',', ':', ';', '!', '?'}), @"^\[([^]]*)\]$", @"$1");
         }
 
+        private static void Main()
+        {
+            Console.WriteLine("Parsing...");
+            var document = XDocument.Load(new StreamReader("rare-list-16052012.xml", Encoding.GetEncoding(1251)));
+            var books = ParseBooks(document);
+            Console.WriteLine("Saving...");
+            SaveBooks(books);
+            Console.WriteLine("{0} books saved.", books.Count);
+
+            Console.Read();
+        }
+
         private static List<Book> ParseBooks(XDocument document)
         {
             var booksNodes = document.Descendants("Document");
@@ -71,18 +83,6 @@ namespace Rb.RareListParser
                 }
                 Console.WriteLine();
             }
-        }
-
-        private static void Main()
-        {
-            Console.WriteLine("Parsing...");
-            var document = XDocument.Load(new StreamReader("rare-list-16052012.xml", Encoding.GetEncoding(1251)));
-            var books = ParseBooks(document);
-            Console.WriteLine("Saving...");
-            SaveBooks(books);
-            Console.WriteLine("{0} books saved.", books.Count);
-
-            Console.Read();
         }
     }
 }
