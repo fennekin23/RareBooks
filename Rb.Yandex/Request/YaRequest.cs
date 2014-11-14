@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Rb.Yandex.Request
 {
     [XmlRoot("request")]
-    public class YandexRequest
+    public class YaRequest
     {
         [XmlArray("groupings")]
         [XmlArrayItem("groupby")]

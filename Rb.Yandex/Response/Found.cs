@@ -5,7 +5,7 @@ namespace Rb.Yandex.Response
     public class Found
     {
         [XmlText]
-        public int Count { get; set; }
+        public long Count { get; set; }
 
         [XmlAttribute("priority")]
         public string Prioriry { get; set; }

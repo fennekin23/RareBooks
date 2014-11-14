@@ -28,6 +28,7 @@
         public string Isbn { get; set; }
         public string Issn { get; set; }
         public LanguageCode LanguageCode { get; set; }
+        public bool ProcessedByYandex { get; set; }
         public string PublishPlace { get; set; }
         public int PublishYear { get; set; }
         public string Publisher { get; set; }

@@ -4,7 +4,7 @@ using System.Xml.Serialization;
 namespace Rb.Yandex.Response
 {
     [XmlRoot("response")]
-    public class YandexResponse
+    public class YaResponse
     {
         [XmlAttribute("date")]
         public string DateString { get; set; }

@@ -1,17 +1,21 @@
 ﻿using System.ComponentModel;
+using Rb.Common;
 
 namespace Rb.Data.Entities
 {
     public enum RequestType
     {
+        [Description("[-=Unknown=-]")]
+        Unknown = 0,
+        //---------------------------------------------------------------------------------------------------//
         [Description("[Title]")]
         NoLangTitle = 1,
 
         [Description("allInTitle: [Title]")]
         NoLangTitleAllInTitle = 2,
 
-        [Description("allInAnchor: [Title]")]
-        NoLangTitleAllInAnchor = 3,
+        [Description("[Title] + [publisher] | [publish place]")]
+        NoLangTitlePublisherOrPublishPlace = 3,
         //-------------------------------------------------//
         [Description("\"[Title]\"")]
         NoLangExactTitle = 4,
@@ -19,8 +23,8 @@ namespace Rb.Data.Entities
         [Description("allInTitle: \"[Title]\"")]
         NoLangExactTitleAllInTitle = 5,
 
-        [Description("allInAnchor: \"[Title]\"")]
-        NoLangExactTitleAllInAnchor = 6,
+        [Description("\"[Title]\" + [publisher] | [publish place]")]
+        NoLangExactTitlePublisherOrPublishPlace = 6,
         //-------------------------------------------------//
         [Description("[Title] + [year]")]
         NoLangTitleYear = 7,
@@ -28,8 +32,8 @@ namespace Rb.Data.Entities
         [Description("allInTitle: [Title] + [year]")]
         NoLangTitleYearAllInTitle = 8,
 
-        [Description("allInAnchor: [Title] + [year]")]
-        NoLangTitleYearAllInAnchor = 9,
+        [Description("[Title] + [publisher] | [publish place] + [year]")]
+        NoLangTitlePublisherOrPublishPlaceYear = 9,
         //-------------------------------------------------//
         [Description("\"[Title]\" + [year]")]
         NoLangExactTitleYear = 10,
@@ -37,8 +41,8 @@ namespace Rb.Data.Entities
         [Description("allInTitle: \"[Title]\" + [year]")]
         NoLangExactTitleYearAllInTitle = 11,
 
-        [Description("allInAnchor: \"[Title]\" + [year]")]
-        NoLangExactTitleYearAllInAnchor = 12,
+        [Description("\"[Title]\" + [publisher] | [publish place] + [year]")]
+        NoLangExactTitlePublisherOrPublishPlaceYear = 12,
         //-------------------------------------------------//
         [Description("[Title] + [author]")]
         NoLangTitleAuthor = 13,
@@ -46,8 +50,8 @@ namespace Rb.Data.Entities
         [Description("allInTitle: [Title] + [author]")]
         NoLangTitleAuthorAllInTitle = 14,
 
-        [Description("allInAnchor: [Title] + [author]")]
-        NoLangTitleAuthorAllInAnchor = 15,
+        [Description("[Title] + [author] + [publisher] | [publish place]")]
+        NoLangTitleAuthorPublisherOrPublishPlace = 15,
         //-------------------------------------------------//
         [Description("\"[Title]\" + [author]")]
         NoLangExactTitleAuthor = 16,
@@ -55,8 +59,8 @@ namespace Rb.Data.Entities
         [Description("allInTitle: \"[Title]\" + [author]")]
         NoLangExactTitleAuthorAllInTitle = 17,
 
-        [Description("allInAnchor: \"[Title]\" + [author]")]
-        NoLangExactTitleAuthorAllInAnchor = 18,
+        [Description("\"[Title]\" + [author] + [publisher] | [publish place]")]
+        NoLangExactTitleAuthorPublisherOrPublishPlace = 18,
         //-------------------------------------------------//
         [Description("[Title] + [year] + [author]")]
         NoLangTitleYearAuthor = 19,
@@ -64,8 +68,8 @@ namespace Rb.Data.Entities
         [Description("allInTitle: [Title] + [year] + [author]")]
         NoLangTitleYearAuthorAllInTitle = 20,
 
-        [Description("allInAnchor: [Title] + [year] + [author]")]
-        NoLangTitleYearAuthorAllInAnchor = 21,
+        [Description("allInTitle: \"[Title] + [author]\"")]
+        NoLangTitleAuthorExactAllInTitle = 21,
         //-------------------------------------------------//
         [Description("\"[Title]\" + [year] + [author]")]
         NoLangExactTitleYearAuthor = 22,
@@ -73,80 +77,104 @@ namespace Rb.Data.Entities
         [Description("allInTitle: \"[Title]\" + [year] + [author]")]
         NoLangExactTitleYearAuthorAllInTitle = 23,
 
-        [Description("allInAnchor: \"[Title]\" + [year] + [author]")]
-        NoLangExactTitleYearAuthorAllInAnchor = 24,
+        [Description("allInTitle: \"[Title] + [year]\"")]
+        NoLangTitleYearExactAllInTitle = 24,
         //---------------------------------------------------------------------------------------------------//
+        [LanguageSpecific]
         [Description("[Title] --lang")]
         LangTitle = 25,
 
+        [LanguageSpecific]
         [Description("allInTitle: [Title] --lang")]
         LangTitleAllInTitle = 26,
 
-        [Description("allInAnchor: [Title] --lang")]
-        LangTitleAllInAnchor = 27,
+        [LanguageSpecific]
+        [Description("[Title] + [publisher] | [publish place] --lang")]
+        LangTitlePublisherOrPublishPlace = 27,
         //-------------------------------------------------//
+        [LanguageSpecific]
         [Description("\"[Title]\" --lang")]
         LangExactTitle = 28,
 
+        [LanguageSpecific]
         [Description("allInTitle: \"[Title]\" --lang")]
         LangExactTitleAllInTitle = 29,
 
-        [Description("allInAnchor: \"[Title]\" --lang")]
-        LangExactTitleAllInAnchor = 30,
+        [LanguageSpecific]
+        [Description("\"[Title]\" + [publisher] | [publish place] --lang")]
+        LangExactTitlePublisherOrPublishPlace = 30,
         //-------------------------------------------------//
+        [LanguageSpecific]
         [Description("[Title] + [year] --lang")]
         LangTitleYear = 31,
 
+        [LanguageSpecific]
         [Description("allInTitle: [Title] + [year] --lang")]
         LangTitleYearAllInTitle = 32,
 
-        [Description("allInAnchor: [Title] + [year] --lang")]
-        LangTitleYearAllInAnchor = 33,
+        [LanguageSpecific]
+        [Description("[Title] + [publisher] | [publish place] + [year] --lang")]
+        LangTitlePublisherOrPublishPlaceYear = 33,
         //-------------------------------------------------//
+        [LanguageSpecific]
         [Description("\"[Title]\" + [year] --lang")]
         LangExactTitleYear = 34,
 
+        [LanguageSpecific]
         [Description("allInTitle: \"[Title]\" + [year] --lang")]
         LangExactTitleYearAllInTitle = 35,
 
-        [Description("allInAnchor: \"[Title]\" + [year] --lang")]
-        LangExactTitleYearAllInAnchor = 36,
+        [LanguageSpecific]
+        [Description("\"[Title]\" + [publisher] | [publish place] + [year] --lang")]
+        LangExactTitlePublisherOrPublishPlaceYear = 36,
         //-------------------------------------------------//
+        [LanguageSpecific]
         [Description("[Title] + [author] --lang")]
         LangTitleAuthor = 37,
 
+        [LanguageSpecific]
         [Description("allInTitle: [Title] + [author] --lang")]
         LangTitleAuthorAllInTitle = 38,
 
-        [Description("allInAnchor: [Title] + [author] --lang")]
-        LangTitleAuthorAllInAnchor = 39,
+        [LanguageSpecific]
+        [Description("[Title] + [author] + [publisher] | [publish place] --lang")]
+        LangTitleAuthorPublisherOrPublishPlace = 39,
         //-------------------------------------------------//
+        [LanguageSpecific]
         [Description("\"[Title]\" + [author] --lang")]
         LangExactTitleAuthor = 40,
 
+        [LanguageSpecific]
         [Description("allInTitle: \"[Title]\" + [author] --lang")]
         LangExactTitleAuthorAllInTitle = 41,
 
-        [Description("allInAnchor: \"[Title]\" + [author] --lang")]
-        LangExactTitleAuthorAllInAnchor = 42,
+        [LanguageSpecific]
+        [Description("\"[Title]\" + [author] + [publisher] | [publish place] --lang")]
+        LangExactTitleAuthorPublisherOrPublishPlace = 42,
         //-------------------------------------------------//
+        [LanguageSpecific]
         [Description("[Title] + [year] + [author] --lang")]
         LangTitleYearAuthor = 43,
 
+        [LanguageSpecific]
         [Description("allInTitle: [Title] + [year] + [author] --lang")]
         LangTitleYearAuthorAllInTitle = 44,
 
-        [Description("allInAnchor: [Title] + [year] + [author] --lang")]
-        LangTitleYearAuthorAllInAnchor = 45,
+        [LanguageSpecific]
+        [Description("allInTitle: \"[Title] + [author]\" --lang")]
+        LangTitleAuthorExactAllInTitle = 45,
         //-------------------------------------------------//
+        [LanguageSpecific]
         [Description("\"[Title]\" + [year] + [author] --lang")]
         LangExactTitleYearAuthor = 46,
 
+        [LanguageSpecific]
         [Description("allInTitle: \"[Title]\" + [year] + [author] --lang")]
         LangExactTitleYearAuthorAllInTitle = 47,
 
-        [Description("allInAnchor: \"[Title]\" + [year] + [author] --lang")]
-        LangExactTitleYearAuthorAllInAnchor = 48,
+        [LanguageSpecific]
+        [Description("allInTitle: \"[Title] + [year]\" --lang")]
+        LangTitleYearExactAllInTitle = 48,
         //---------------------------------------------------------------------------------------------------//
         [Description("[Author] + [title]")]
         NoLangAuthorTitle = 49,

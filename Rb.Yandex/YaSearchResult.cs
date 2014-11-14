@@ -5,12 +5,12 @@ using Rb.Yandex.Response;
 namespace Rb.Yandex
 {
     [XmlRoot("yandexsearch")]
-    public class SearchResult
+    public class YaSearchResult
     {
         [XmlElement("request")]
-        public YandexRequest Request { get; set; }
+        public YaRequest Request { get; set; }
 
         [XmlElement("response")]
-        public YandexResponse Response { get; set; }
+        public YaResponse Response { get; set; }
     }
 }

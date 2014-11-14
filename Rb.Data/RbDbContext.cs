@@ -13,6 +13,7 @@ namespace Rb.Data
 
         public DbSet<Book> Books { get; set; }
         public DbSet<Request> Requests { get; set; }
+        public DbSet<YandexSearchResult> YandexSearchResults { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {

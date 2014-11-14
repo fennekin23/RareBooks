@@ -44,6 +44,7 @@
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\Request.cs" />
+    <Compile Include="Entities\YandexSearchResult.cs" />
     <Compile Include="Migrations\201411062036078_Initial.cs" />
     <Compile Include="Migrations\201411062036078_Initial.Designer.cs">
       <DependentUpon>201411062036078_Initial.cs</DependentUpon>
@@ -51,6 +52,22 @@
     <Compile Include="Migrations\201411112050070_AddRequests.cs" />
     <Compile Include="Migrations\201411112050070_AddRequests.Designer.cs">
       <DependentUpon>201411112050070_AddRequests.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411122108591_AddYandexSearchResult.cs" />
+    <Compile Include="Migrations\201411122108591_AddYandexSearchResult.Designer.cs">
+      <DependentUpon>201411122108591_AddYandexSearchResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411122154494_AddProcessedByYandexToBook.cs" />
+    <Compile Include="Migrations\201411122154494_AddProcessedByYandexToBook.Designer.cs">
+      <DependentUpon>201411122154494_AddProcessedByYandexToBook.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411131942491_AddUnknownRequestAndDocumentUrlForYandexResult.cs" />
+    <Compile Include="Migrations\201411131942491_AddUnknownRequestAndDocumentUrlForYandexResult.Designer.cs">
+      <DependentUpon>201411131942491_AddUnknownRequestAndDocumentUrlForYandexResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411132108007_ChangeFoundDocumentsToLong.cs" />
+    <Compile Include="Migrations\201411132108007_ChangeFoundDocumentsToLong.Designer.cs">
+      <DependentUpon>201411132108007_ChangeFoundDocumentsToLong.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,6 +83,18 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411112050070_AddRequests.resx">
       <DependentUpon>201411112050070_AddRequests.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411122108591_AddYandexSearchResult.resx">
+      <DependentUpon>201411122108591_AddYandexSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411122154494_AddProcessedByYandexToBook.resx">
+      <DependentUpon>201411122154494_AddProcessedByYandexToBook.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411131942491_AddUnknownRequestAndDocumentUrlForYandexResult.resx">
+      <DependentUpon>201411131942491_AddUnknownRequestAndDocumentUrlForYandexResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411132108007_ChangeFoundDocumentsToLong.resx">
+      <DependentUpon>201411132108007_ChangeFoundDocumentsToLong.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

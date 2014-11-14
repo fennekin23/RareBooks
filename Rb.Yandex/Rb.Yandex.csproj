@@ -42,7 +42,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="RequestFactory.cs" />
+    <Compile Include="YaLanguageMapper.cs" />
+    <Compile Include="YaRequestFactory.cs" />
     <Compile Include="Response\Category.cs" />
     <Compile Include="Response\Document.cs" />
     <Compile Include="Response\Error.cs" />
@@ -57,13 +58,13 @@
     <Compile Include="Xml\Deserializer.cs" />
     <Compile Include="Request\GroupBy.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Request\YandexRequest.cs" />
-    <Compile Include="Response\YandexResponse.cs" />
-    <Compile Include="SearchResult.cs" />
+    <Compile Include="Request\YaRequest.cs" />
+    <Compile Include="Response\YaResponse.cs" />
+    <Compile Include="YaSearchResult.cs" />
     <Compile Include="Request\SortBy.cs" />
     <Compile Include="Xml\Serializer.cs" />
     <Compile Include="Xml\Utf8StringWriter.cs" />
-    <Compile Include="YandexSearchEngine.cs" />
+    <Compile Include="YaSearchEngine.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
