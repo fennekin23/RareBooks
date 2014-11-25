@@ -43,7 +43,10 @@
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\HathitrustResult.cs" />
+    <Compile Include="Entities\HathitrustResultLink.cs" />
     <Compile Include="Entities\Request.cs" />
+    <Compile Include="Entities\WorldcatResult.cs" />
     <Compile Include="Entities\YandexSearchResult.cs" />
     <Compile Include="Migrations\201411062036078_Initial.cs" />
     <Compile Include="Migrations\201411062036078_Initial.Designer.cs">
@@ -68,6 +71,14 @@
     <Compile Include="Migrations\201411132108007_ChangeFoundDocumentsToLong.cs" />
     <Compile Include="Migrations\201411132108007_ChangeFoundDocumentsToLong.Designer.cs">
       <DependentUpon>201411132108007_ChangeFoundDocumentsToLong.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411231203404_AddWorldcatResult.cs" />
+    <Compile Include="Migrations\201411231203404_AddWorldcatResult.Designer.cs">
+      <DependentUpon>201411231203404_AddWorldcatResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201411252134057_AddHathitrustResult.cs" />
+    <Compile Include="Migrations\201411252134057_AddHathitrustResult.Designer.cs">
+      <DependentUpon>201411252134057_AddHathitrustResult.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -95,6 +106,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201411132108007_ChangeFoundDocumentsToLong.resx">
       <DependentUpon>201411132108007_ChangeFoundDocumentsToLong.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411231203404_AddWorldcatResult.resx">
+      <DependentUpon>201411231203404_AddWorldcatResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201411252134057_AddHathitrustResult.resx">
+      <DependentUpon>201411252134057_AddHathitrustResult.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

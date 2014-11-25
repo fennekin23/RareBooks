@@ -21,7 +21,7 @@ namespace Rb.WebSearcher
         {
             Initialize();
             searchEngine = new YaSearchEngine();
-            availableRequests = 2000;
+            availableRequests = 10000;
         }
 
         private static List<Book> GetBooks()
