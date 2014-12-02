@@ -9,6 +9,8 @@ namespace Rb.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private const int c_pageSize = 10;
+
         [Inject]
         public IRepository<Book> BookRepository { get; set; }
 
@@ -21,19 +23,23 @@ namespace Rb.Web.Controllers
         public ActionResult Index()
         {
             var model = BookRepository.Items
+                .OrderBy(i => i.Title)
+                .Skip(c_pageSize*0)
+                .Take(c_pageSize)
                 .Select(i => new BookModel
                 {
                     Author = i.Author,
-                    HathitrustResult = HathitrustResultRepository.Items.FirstOrDefault(h => h.BookId == i.InternalId),
+                    HathitrustResults = i.HathitrustResults.ToList(),
                     PublishPlace = i.PublishPlace,
                     PublishYear = i.PublishYear,
                     Publisher = i.Publisher,
                     Size = i.Size,
                     Title = i.Title,
-                    WorldcatResult = WorldcatResultRepository.Items.FirstOrDefault(w => w.BookId == i.InternalId)
+                    WorldcatResults = i.WorldcatResults.ToList()
                 })
                 .ToList();
-            return View();
+
+            return View(model);
         }
     }
 }

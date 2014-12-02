@@ -31,7 +31,7 @@ namespace Rb.WebParsers
                                      let data = HathitrustParser.Parse(hathitrustSearchResult.DocumentUrl)
                                      select new HathitrustResult
                                      {
-                                         BookId = hathitrustSearchResult.BookId,
+                                         BookInternalId = hathitrustSearchResult.BookId,
                                          Author = data.Author,
                                          Description = data.Description,
                                          Language = data.Language,
@@ -55,7 +55,7 @@ namespace Rb.WebParsers
                 worldcatSearchResults = dbContext.YandexSearchResults
                     .Where(i => i.DocumentUrl.Contains(@"http://www.worldcat.org/title"))
                     .Where(i => i.RequestType == RequestType.ExactTitleWorldcat)
-                    .Where(i => !dbContext.WorldcatResults.Select(r => r.BookId).Contains(i.BookId))
+                    .Where(i => !dbContext.WorldcatResults.Select(r => r.BookInternalId).Contains(i.BookId))
                     .ToList();
             }
 
@@ -64,7 +64,7 @@ namespace Rb.WebParsers
                                    where data.DocumentType.Equals("book", StringComparison.InvariantCultureIgnoreCase)
                                    select new WorldcatResult
                                    {
-                                       BookId = worldcatSearchResult.BookId,
+                                       BookInternalId = worldcatSearchResult.BookId,
                                        Contents = data.Contents,
                                        Description = data.Description,
                                        Genre = data.Genre,
