@@ -28,17 +28,17 @@ namespace Rb.WebParsers
             }
 
             var hathitrustResults = (from hathitrustSearchResult in hathitrustSearchResults
-                let data = HathitrustParser.Parse(hathitrustSearchResult.DocumentUrl)
-                select new HathitrustResult
-                {
-                    BookId = hathitrustSearchResult.BookId,
-                    Author = data.Author,
-                    Description = data.Description,
-                    Language = data.Language,
-                    Links = data.Links.Select(i => new HathitrustResultLink { Url = i }).ToList(),
-                    Publisher = data.Publisher,
-                    Url = hathitrustSearchResult.DocumentUrl
-                }).ToList();
+                                     let data = HathitrustParser.Parse(hathitrustSearchResult.DocumentUrl)
+                                     select new HathitrustResult
+                                     {
+                                         BookId = hathitrustSearchResult.BookId,
+                                         Author = data.Author,
+                                         Description = data.Description,
+                                         Language = data.Language,
+                                         Links = data.Links.Select(i => new HathitrustResultLink { Url = i }).ToList(),
+                                         Publisher = data.Publisher,
+                                         Url = hathitrustSearchResult.DocumentUrl
+                                     }).ToList();
 
             using (var dbContext = new RbDbContext())
             {
@@ -54,23 +54,24 @@ namespace Rb.WebParsers
             {
                 worldcatSearchResults = dbContext.YandexSearchResults
                     .Where(i => i.DocumentUrl.Contains(@"http://www.worldcat.org/title"))
-                    .Where(i => i.RequestType == RequestType.NoLangExactTitle)
+                    .Where(i => i.RequestType == RequestType.ExactTitleWorldcat)
+                    .Where(i => !dbContext.WorldcatResults.Select(r => r.BookId).Contains(i.BookId))
                     .ToList();
             }
 
             var worldcatResults = (from worldcatSearchResult in worldcatSearchResults
-                let data = WorldcatParser.Parse(worldcatSearchResult.DocumentUrl)
-                where data.DocumentType.Equals("book", StringComparison.InvariantCultureIgnoreCase)
-                select new WorldcatResult
-                {
-                    BookId = worldcatSearchResult.BookId,
-                    Contents = data.Contents,
-                    Description = data.Description,
-                    Genre = data.Genre,
-                    Notes = data.Notes,
-                    OtherTitles = data.OtherTitles,
-                    Url = worldcatSearchResult.DocumentUrl
-                }).ToList();
+                                   let data = WorldcatParser.Parse(worldcatSearchResult.DocumentUrl)
+                                   where data.DocumentType.Equals("book", StringComparison.InvariantCultureIgnoreCase)
+                                   select new WorldcatResult
+                                   {
+                                       BookId = worldcatSearchResult.BookId,
+                                       Contents = data.Contents,
+                                       Description = data.Description,
+                                       Genre = data.Genre,
+                                       Notes = data.Notes,
+                                       OtherTitles = data.OtherTitles,
+                                       Url = worldcatSearchResult.DocumentUrl
+                                   }).ToList();
 
             using (var dbContext = new RbDbContext())
             {

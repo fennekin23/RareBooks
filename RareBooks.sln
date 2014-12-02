@@ -15,6 +15,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.WebSearcher", "Rb.WebSea
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.WebParsers", "Rb.Worlcat\Rb.WebParsers.csproj", "{E2341FCD-BAA5-4402-83F6-695CF673F656}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.Web", "Rb.Web\Rb.Web.csproj", "{47A4F731-070B-42B7-8C8B-3B10E285887D}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{E2341FCD-BAA5-4402-83F6-695CF673F656}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{E2341FCD-BAA5-4402-83F6-695CF673F656}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{E2341FCD-BAA5-4402-83F6-695CF673F656}.Release|Any CPU.Build.0 = Release|Any CPU
+		{47A4F731-070B-42B7-8C8B-3B10E285887D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{47A4F731-070B-42B7-8C8B-3B10E285887D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{47A4F731-070B-42B7-8C8B-3B10E285887D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{47A4F731-070B-42B7-8C8B-3B10E285887D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

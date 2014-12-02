@@ -229,6 +229,10 @@ namespace Rb.Yandex
                 case RequestType.NoLangAuthorTitleYear:
                     request.Query = string.Format("{0} {1} {2}", book.Author, book.Title, book.PublishYear).Trim();
                     break;
+                //-----------------------------------------------------------------------------------------------------------------------------//
+                case RequestType.ExactTitleWorldcat:
+                    request.Query = string.Format("title:\"{0}\" site:worldcat.org", book.Title);
+                    break;
 
                 default:
                     throw new ArgumentOutOfRangeException("requestType");

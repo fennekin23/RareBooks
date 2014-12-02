@@ -180,7 +180,10 @@ namespace Rb.Data.Entities
         NoLangAuthorTitle = 49,
 
         [Description("[Author] + [title] + [year]")]
-        NoLangAuthorTitleYear = 50
+        NoLangAuthorTitleYear = 50,
+        //---------------------------------------------------------------------------------------------------//
+        [Description("\"[Title]\" worldcat")]
+        ExactTitleWorldcat = 51
     }
 
     public class Request : BaseEntity
