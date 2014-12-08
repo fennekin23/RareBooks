@@ -40,6 +40,11 @@ namespace Rb.Data
             return m_table.Find(id);
         }
 
+        public T GetById(int id, int secondaryId)
+        {
+            return m_table.Find(id, secondaryId);
+        }
+
         public void Remove(T entity)
         {
             m_table.Remove(entity);

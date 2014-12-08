@@ -1,0 +1,19 @@
+﻿@model Rb.Web.Models.BookModel
+
+<div class="row box box-green">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>@Html.DisplayFor(model => model.Title)</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-10">
+                <span class="text-left author-year">@Html.DisplayFor(model => model.PublishYear) @Html.DisplayFor(model => model.Author)</span>
+            </div>
+            <div class="col-md-2 pull-right">
+                @Html.ActionLink("Details", "Details", "Book", new { id = Model.Id, internalId = Model.InternalId }, new { @class = "pull-right details-link" })
+            </div>
+        </div>
+    </div>
+</div>

@@ -16,8 +16,8 @@ namespace Rb.Web.Ninject
         {
             public override void Load()
             {
-                Kernel.Bind(typeof (RbDbContext)).ToSelf().InSingletonScope();
-                Kernel.Bind(typeof (IRepository<>)).To(typeof (GenericRepository<>));
+                Kernel.Bind(typeof (RbDbContext)).ToSelf().InRequestScope();
+                Kernel.Bind(typeof (IRepository<>)).To(typeof (GenericRepository<>)).InRequestScope();
             }
         }
     }

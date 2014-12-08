@@ -10,6 +10,7 @@ namespace Rb.Data
         void Add(T entity);
         void Add(IEnumerable<T> entities);
         T GetById(int id);
+        T GetById(int id, int secondaryId);
         void Remove(T entity);
         void Update(T entity);
     }

@@ -1,0 +1,53 @@
+﻿@model Rb.Web.Models.BookDetailsModel
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="row">
+            <div class="col-md-12">
+                <h3>@Html.DisplayFor(model => model.Title)</h3>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="box box-green">
+                    <dl class="dl-horizontal">
+                        <dt>Автор</dt>
+                        <dd>@Html.DisplayFor(model => model.Author)</dd>
+
+                        <dt>Рік видання</dt>
+                        <dd>@Html.DisplayFor(model => model.PublishYear)</dd>
+
+                        <dt>Мова</dt>
+                        <dd>@Html.DisplayFor(model => model.Language)</dd>
+
+                        <dt>Видавництво</dt>
+                        <dd>@Html.DisplayFor(model => model.Publisher)</dd>
+
+                        <dt>Місце видання</dt>
+                        <dd>@Html.DisplayFor(model => model.PublishPlace)</dd>
+
+                        <dt>Про книгу</dt>
+                        <dd>bla bla bla</dd>
+                    </dl>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<hr/>
+<div class="row">
+    <div class="col-md-6">
+        <h4>Hatritrust catalog</h4>
+        @foreach (var hathitrustResult in Model.HathitrustDetails)
+        {
+            @Html.Partial("HathitrustDetailsPartial", hathitrustResult)
+        }
+    </div>
+    <div class="col-md-6">
+        <h4>Worldcat</h4>
+        @foreach (var worldcatResult in Model.WorlcatDetails)
+        {
+            @Html.Partial("WorldcatDetailsPartial", worldcatResult)
+        }
+    </div>
+</div>

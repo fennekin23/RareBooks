@@ -22,3 +22,28 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.author-year {
+    font-size: 18px;
+}
+
+.details-link {
+    font-size: 18px;
+}
+
+.details-right {
+    min-width: 320px;
+}
+
+/* box */
+.box {
+    border-width: 2px;
+    border-radius: 5px;
+    border-style: solid;
+    padding: 5px;
+    margin: 5px;
+}
+
+.box-green {
+    border-color: #00933B;
+}

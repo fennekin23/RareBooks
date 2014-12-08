@@ -1,0 +1,25 @@
+﻿@using Rb.Web.Helpers
+@model Rb.Web.Models.BookDetailsModel.WorlcatDetailsModel
+
+<div class="box box-green">
+    <div class="row">
+        <div class="col-md-6">
+            <dl class="dl-horizontal">
+                <dt>Загальна інформація</dt>
+                <dd class="details-right">@Html.DisplayFor(model => model.Contents)</dd>
+
+                <dt>Про книгу</dt>
+                <dd class="details-right">@Html.DisplayFor(model => model.Description)</dd>
+
+                <dt>Жанр</dt>
+                <dd class="details-right">@Html.DisplayFor(model => model.Genre)</dd>
+
+                <dt>Нотатки</dt>
+                <dd class="details-right">@Html.DisplayFor(model => model.Notes)</dd>
+
+                <dt>Джерело</dt>
+                <dd class="details-right">@Html.HtmlLink(Model.Url, Model.Url, null)</dd>
+            </dl>
+        </div>
+    </div>
+</div>
