@@ -29,12 +29,20 @@ namespace Rb.RareListParser
             return result;
         }
 
+        //private static string GetStringValue(XElement xElement, string key)
+        //{
+        //    var element = xElement.Element(key);
+        //    return element == null
+        //        ? string.Empty
+        //        : Regex.Replace(element.Value.Trim(new[] {' ', '.', ',', ':', ';', '!', '?'}), @"^\[([^]]*)\]$", @"$1");
+        //}
+
         private static string GetStringValue(XElement xElement, string key)
         {
-            var element = xElement.Element(key);
-            return element == null
-                ? string.Empty
-                : Regex.Replace(element.Value.Trim(new[] {' ', '.', ',', ':', ';', '!', '?'}), @"^\[([^]]*)\]$", @"$1");
+            var elements = xElement.Elements(key);
+            var value = string.Join("", elements.Where(i => i != null).SelectMany(i => i.Value.Trim()));
+
+            return Regex.Replace(value.Trim(new[] { ' ', '.', ',', ':', ';', '!', '?' }), @"^\[([^]]*)\]$", @"$1");
         }
 
         private static void Main()
@@ -54,6 +62,7 @@ namespace Rb.RareListParser
             var booksNodes = document.Descendants("Document");
             var result = booksNodes.Select(i => new Book
             {
+                Annotation = GetStringValue(i, "Annotation"),
                 Author = GetStringValue(i, "Author"),
                 Bbk = GetStringValue(i, "BBK"),
                 InternalId = GetIntValue(i, "DocId"),

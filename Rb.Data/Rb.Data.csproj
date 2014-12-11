@@ -100,6 +100,10 @@
     <Compile Include="Migrations\201412021931029_HathitrustResultForeignKey.Designer.cs">
       <DependentUpon>201412021931029_HathitrustResultForeignKey.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412112058526_AddAnnotation.cs" />
+    <Compile Include="Migrations\201412112058526_AddAnnotation.Designer.cs">
+      <DependentUpon>201412112058526_AddAnnotation.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RbDbContext.cs" />
@@ -149,6 +153,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412021931029_HathitrustResultForeignKey.resx">
       <DependentUpon>201412021931029_HathitrustResultForeignKey.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412112058526_AddAnnotation.resx">
+      <DependentUpon>201412112058526_AddAnnotation.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

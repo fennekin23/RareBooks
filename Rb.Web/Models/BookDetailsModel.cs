@@ -4,6 +4,7 @@ namespace Rb.Web.Models
 {
     public class BookDetailsModel
     {
+        public string Annotation { get; set; }
         public string Author { get; set; }
         public IList<HathitrustDetailsModel> HathitrustDetails { get; set; }
         public string Language { get; set; }

@@ -50,6 +50,7 @@ namespace Rb.Data.Entities
             WorldcatResults = new Collection<WorldcatResult>();
         }
 
+        public string Annotation { get; set; }
         public string Author { get; set; }
         public string Bbk { get; set; }
         public virtual ICollection<HathitrustResult> HathitrustResults { get; set; }

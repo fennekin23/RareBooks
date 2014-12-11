@@ -22,6 +22,7 @@ namespace Rb.Web.Controllers
             var book = BookRepository.GetById(id, internalId);
             var model = new BookDetailsModel
             {
+                Annotation = book.Annotation,
                 Author = book.Author,
                 HathitrustDetails = book.HathitrustResults.Select(h => new BookDetailsModel.HathitrustDetailsModel
                 {
