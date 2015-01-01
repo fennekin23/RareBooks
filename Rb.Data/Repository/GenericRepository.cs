@@ -11,10 +11,9 @@ namespace Rb.Data
         private readonly RbDbContext m_dbContext;
         private readonly DbSet<T> m_table;
 
-        public GenericRepository(RbDbContext dbContext)
+        public GenericRepository(RbDbContext dbContext = null)
         {
-
-            m_dbContext = dbContext;
+            m_dbContext = dbContext ?? new RbDbContext();
             m_table = m_dbContext.Set<T>();
         }
 

@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Rb.WebSearcher
+namespace Rb.Yandex.WebSearcher
 {
     internal class Program
     {

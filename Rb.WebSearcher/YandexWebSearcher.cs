@@ -5,23 +5,22 @@ using System.Linq;
 using Rb.Common;
 using Rb.Data;
 using Rb.Data.Entities;
-using Rb.Yandex;
 using Rb.Yandex.Response;
 
-namespace Rb.WebSearcher
+namespace Rb.Yandex.WebSearcher
 {
     public class YandexWebSearcher
     {
-        private readonly YaSearchEngine searchEngine;
-        private int availableRequests;
-        private List<Book> books;
-        private List<RequestType> requestTypes;
+        private readonly YaSearchEngine m_searchEngine;
+        private int m_availableRequests;
+        private List<Book> m_books;
+        private List<RequestType> m_requestTypes;
 
         public YandexWebSearcher()
         {
             Initialize();
-            searchEngine = new YaSearchEngine();
-            availableRequests = 10000;
+            m_searchEngine = new YaSearchEngine();
+            m_availableRequests = 10000;
         }
 
         private static List<Book> GetBooks()
@@ -62,8 +61,8 @@ namespace Rb.WebSearcher
 
         private void Initialize()
         {
-            books = GetBooks();
-            requestTypes = GetRequestTypes();
+            m_books = GetBooks();
+            m_requestTypes = GetRequestTypes();
         }
 
         private static void SaveResult(YaSearchResult result, int bookId, RequestType requestType)
@@ -113,39 +112,39 @@ namespace Rb.WebSearcher
 
         public void Process()
         {
-            if (books.Count == 0)
+            if (m_books.Count == 0)
             {
                 Console.WriteLine("There are no books for yandex processing.");
                 return;
             }
 
-            for (var i = 0; i < books.Count; i++)
+            for (var i = 0; i < m_books.Count; i++)
             {
-                var lastRequestType = GetLastRequestType(books[i]);
-                var requestStartIndex = requestTypes.IndexOf(lastRequestType) + 1;
+                var lastRequestType = GetLastRequestType(m_books[i]);
+                var requestStartIndex = m_requestTypes.IndexOf(lastRequestType) + 1;
 
-                for (var j = requestStartIndex; j < requestTypes.Count; j++)
+                for (var j = requestStartIndex; j < m_requestTypes.Count; j++)
                 {
-                    if (availableRequests == 0)
+                    if (m_availableRequests == 0)
                     {
                         Console.WriteLine("There are no available requests for today...");
                         return;
                     }
 
-                    var yandexLang = YaLanguageMapper.GetLang(books[i].LanguageCode);
+                    var yandexLang = YaLanguageMapper.GetLang(m_books[i].LanguageCode);
 
-                    if (string.IsNullOrEmpty(yandexLang) && requestTypes[j].IsLanguageSpecific())
+                    if (string.IsNullOrEmpty(yandexLang) && m_requestTypes[j].IsLanguageSpecific())
                     {
                         continue;
                     }
 
-                    var request = YaRequestFactory.GetRequest(books[i], requestTypes[j]);
-                    var result = searchEngine.Execute(request);
+                    var request = YaRequestFactory.GetRequest(m_books[i], m_requestTypes[j]);
+                    var result = m_searchEngine.Execute(request);
 
                     if (result.Response.Error == null)
                     {
-                        availableRequests--;
-                        SaveResult(result, books[i].InternalId, requestTypes[j]);
+                        m_availableRequests--;
+                        SaveResult(result, m_books[i].InternalId, m_requestTypes[j]);
                     }
                     else
                     {
@@ -153,7 +152,7 @@ namespace Rb.WebSearcher
 
                         if (result.Response.Error.Code == 15)
                         {
-                            availableRequests--;
+                            m_availableRequests--;
                         }
                         if (result.Response.Error.Code == 32)
                         {
@@ -162,8 +161,8 @@ namespace Rb.WebSearcher
                     }
                 }
 
-                books[i].ProcessedByYandex = true;
-                UpdateBook(books[i]);
+                m_books[i].ProcessedByYandex = true;
+                UpdateBook(m_books[i]);
             }
         }
     }

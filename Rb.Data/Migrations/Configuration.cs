@@ -17,7 +17,7 @@ namespace Rb.Data.Migrations
         {
             Enum.GetValues(typeof (RequestType))
                 .Cast<RequestType>()
-                .Select(i => new Request {Description = i.GetDescription(), Type = i})
+                .Select(i => new Request { Description = i.GetDescription(), Type = i })
                 .ToList()
                 .ForEach(i => context.Requests.AddOrUpdate(r => r.Type, i));
 

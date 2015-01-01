@@ -43,10 +43,12 @@
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
     <Compile Include="Entities\Book.cs" />
+    <Compile Include="Entities\GoogleSearchResultItem.cs" />
     <Compile Include="Entities\HathitrustResult.cs" />
     <Compile Include="Entities\HathitrustResultLink.cs" />
     <Compile Include="Entities\Request.cs" />
     <Compile Include="Entities\WorldcatResult.cs" />
+    <Compile Include="Entities\GoogleSearchResult.cs" />
     <Compile Include="Entities\YandexSearchResult.cs" />
     <Compile Include="Migrations\201411062036078_Initial.cs" />
     <Compile Include="Migrations\201411062036078_Initial.Designer.cs">
@@ -104,6 +106,14 @@
     <Compile Include="Migrations\201412112058526_AddAnnotation.Designer.cs">
       <DependentUpon>201412112058526_AddAnnotation.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201412302152576_AddGoogleSearchResult.cs" />
+    <Compile Include="Migrations\201412302152576_AddGoogleSearchResult.Designer.cs">
+      <DependentUpon>201412302152576_AddGoogleSearchResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201412302157144_ExtendBookToGoogle.cs" />
+    <Compile Include="Migrations\201412302157144_ExtendBookToGoogle.Designer.cs">
+      <DependentUpon>201412302157144_ExtendBookToGoogle.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RbDbContext.cs" />
@@ -156,6 +166,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412112058526_AddAnnotation.resx">
       <DependentUpon>201412112058526_AddAnnotation.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412302152576_AddGoogleSearchResult.resx">
+      <DependentUpon>201412302152576_AddGoogleSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201412302157144_ExtendBookToGoogle.resx">
+      <DependentUpon>201412302157144_ExtendBookToGoogle.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>
