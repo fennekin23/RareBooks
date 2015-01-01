@@ -2,6 +2,7 @@ using System;
 using System.Data.Entity.Migrations;
 using System.Linq;
 using Rb.Common;
+using Rb.Common.Enums;
 using Rb.Data.Entities;
 
 namespace Rb.Data.Migrations

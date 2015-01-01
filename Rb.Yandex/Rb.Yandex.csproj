@@ -42,8 +42,6 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="YaLanguageMapper.cs" />
-    <Compile Include="YaRequestFactory.cs" />
     <Compile Include="Response\Category.cs" />
     <Compile Include="Response\Document.cs" />
     <Compile Include="Response\Error.cs" />

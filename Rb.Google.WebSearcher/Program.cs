@@ -6,8 +6,8 @@ namespace Rb.Google.WebSearcher
     {
         private static void Main(string[] args)
         {
-            var google = new GoSearchEngine();
-            var result = google.Execute(new GoSearchRequest("lenovo"));
+            var googleWebSearcher = new GoogleWebSearcher();
+            googleWebSearcher.Process();
 
             Console.WriteLine("Done!");
         }

@@ -42,6 +42,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entities\BaseEntity.cs" />
+    <Compile Include="Entities\BaseResult.cs" />
+    <Compile Include="Entities\BaseSearchResult.cs" />
     <Compile Include="Entities\Book.cs" />
     <Compile Include="Entities\GoogleSearchResultItem.cs" />
     <Compile Include="Entities\HathitrustResult.cs" />
@@ -114,6 +116,26 @@
     <Compile Include="Migrations\201412302157144_ExtendBookToGoogle.Designer.cs">
       <DependentUpon>201412302157144_ExtendBookToGoogle.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201501011044577_RenameInYandexSearchResult.cs" />
+    <Compile Include="Migrations\201501011044577_RenameInYandexSearchResult.Designer.cs">
+      <DependentUpon>201501011044577_RenameInYandexSearchResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501011055289_AddBookIdToYandexSearchResult.cs" />
+    <Compile Include="Migrations\201501011055289_AddBookIdToYandexSearchResult.Designer.cs">
+      <DependentUpon>201501011055289_AddBookIdToYandexSearchResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501011100312_ForeignKeyOnYandexSearchResult.cs" />
+    <Compile Include="Migrations\201501011100312_ForeignKeyOnYandexSearchResult.Designer.cs">
+      <DependentUpon>201501011100312_ForeignKeyOnYandexSearchResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501011103556_ForeignKeyOnGoogleSearchResult.cs" />
+    <Compile Include="Migrations\201501011103556_ForeignKeyOnGoogleSearchResult.Designer.cs">
+      <DependentUpon>201501011103556_ForeignKeyOnGoogleSearchResult.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201501011740029_Refactor.cs" />
+    <Compile Include="Migrations\201501011740029_Refactor.Designer.cs">
+      <DependentUpon>201501011740029_Refactor.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RbDbContext.cs" />
@@ -172,6 +194,21 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201412302157144_ExtendBookToGoogle.resx">
       <DependentUpon>201412302157144_ExtendBookToGoogle.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501011044577_RenameInYandexSearchResult.resx">
+      <DependentUpon>201501011044577_RenameInYandexSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501011055289_AddBookIdToYandexSearchResult.resx">
+      <DependentUpon>201501011055289_AddBookIdToYandexSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501011100312_ForeignKeyOnYandexSearchResult.resx">
+      <DependentUpon>201501011100312_ForeignKeyOnYandexSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501011103556_ForeignKeyOnGoogleSearchResult.resx">
+      <DependentUpon>201501011103556_ForeignKeyOnGoogleSearchResult.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201501011740029_Refactor.resx">
+      <DependentUpon>201501011740029_Refactor.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <ItemGroup>

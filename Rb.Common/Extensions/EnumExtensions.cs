@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel;
+using System.Reflection;
 
 namespace Rb.Common
 {
@@ -28,6 +29,18 @@ namespace Rb.Common
             var name = value.ToString();
             var attributes = type.GetField(name).GetCustomAttributes(typeof(LanguageSpecificAttribute), false);
             return attributes.Length > 0;
+        }
+
+        public static TEnum GetNoLang<TEnum>(this TEnum value) where TEnum : struct
+        {
+            if (!value.IsLanguageSpecific())
+            {
+                throw new ArgumentException(string.Format("Value {0} not language specific", value));
+            }
+
+            var name = value.ToString();
+            var attribute = typeof(TEnum).GetField(name).GetCustomAttribute<LanguageSpecificAttribute>(false);
+            return (TEnum)attribute.NoLangMember;
         }
     }
 }

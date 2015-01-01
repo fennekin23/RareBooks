@@ -63,6 +63,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rb.Common\Rb.Common.csproj">
+      <Project>{100059e8-ccc0-4a2f-9092-3de9aa9cacb3}</Project>
+      <Name>Rb.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rb.Data\Rb.Data.csproj">
       <Project>{14d4b5d8-67bb-4409-8771-cc6cbe6a6827}</Project>
       <Name>Rb.Data</Name>

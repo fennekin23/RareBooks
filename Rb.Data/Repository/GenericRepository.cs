@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Data.Entity;
 using System.Data.Entity.Migrations;
 using System.Linq;
@@ -6,7 +7,7 @@ using Rb.Data.Entities;
 
 namespace Rb.Data
 {
-    public class GenericRepository<T> : IRepository<T> where T : BaseEntity
+    public class GenericRepository<T> : IRepository<T>, IDisposable where T : BaseEntity
     {
         private readonly RbDbContext m_dbContext;
         private readonly DbSet<T> m_table;
@@ -54,6 +55,11 @@ namespace Rb.Data
         {
             m_table.AddOrUpdate(i => i.Id, entity);
             m_dbContext.SaveChanges();
+        }
+
+        public void Dispose()
+        {
+            m_dbContext.Dispose();
         }
     }
 }

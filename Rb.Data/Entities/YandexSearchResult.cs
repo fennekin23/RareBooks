@@ -2,10 +2,8 @@
 
 namespace Rb.Data.Entities
 {
-    public class YandexSearchResult : BaseEntity
+    public class YandexSearchResult : BaseSearchResult
     {
-        public int BookId { get; set; }
-
         public string DocumentDomain { get; set; }
 
         public string DocumentLanguage { get; set; }
@@ -19,11 +17,5 @@ namespace Rb.Data.Entities
         public string DocumentUrl { get; set; }
 
         public long FoundDocuments { get; set; }
-
-        public string QueryString { get; set; }
-
-        public RequestType RequestType { get; set; }
-
-        public DateTime TimeStamp { get; set; }
     }
 }

@@ -32,7 +32,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.2\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
@@ -42,11 +50,28 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rb.Common.WebSearcher\Rb.Common.WebSearcher.csproj">
+      <Project>{9d762914-06cc-4692-8246-9ffa50b1b7cd}</Project>
+      <Name>Rb.Common.WebSearcher</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rb.Common\Rb.Common.csproj">
+      <Project>{100059e8-ccc0-4a2f-9092-3de9aa9cacb3}</Project>
+      <Name>Rb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rb.Data\Rb.Data.csproj">
+      <Project>{14d4b5d8-67bb-4409-8771-cc6cbe6a6827}</Project>
+      <Name>Rb.Data</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rb.Google\Rb.Google.csproj">
       <Project>{ceb84c0b-89c7-42dc-ba77-beabea952ada}</Project>
       <Name>Rb.Google</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rb.RequestFactories\Rb.RequestFactories.csproj">
+      <Project>{18108E6A-DE2C-4394-A166-275C08C66C75}</Project>
+      <Name>Rb.RequestFactories</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -21,6 +21,14 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.Google", "Rb.Google\Rb.G
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.Google.WebSearcher", "Rb.Google.WebSearcher\Rb.Google.WebSearcher.csproj", "{2E29C413-E13E-4257-A564-7E21051DF948}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.RequestFactories", "Rb.RequestFactories\Rb.RequestFactories.csproj", "{18108E6A-DE2C-4394-A166-275C08C66C75}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.Common.WebSearcher", "Rb.Common.WebSearcher\Rb.Common.WebSearcher.csproj", "{9D762914-06CC-4692-8246-9FFA50B1B7CD}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "WebSearchers", "WebSearchers", "{D49ADD3D-38FD-4590-9520-D93F765DC3A6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchProviders", "SearchProviders", "{3619BCE4-2C29-4D9D-94E9-AB1EA4023908}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -63,8 +71,23 @@ Global
 		{2E29C413-E13E-4257-A564-7E21051DF948}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2E29C413-E13E-4257-A564-7E21051DF948}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2E29C413-E13E-4257-A564-7E21051DF948}.Release|Any CPU.Build.0 = Release|Any CPU
+		{18108E6A-DE2C-4394-A166-275C08C66C75}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{18108E6A-DE2C-4394-A166-275C08C66C75}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{18108E6A-DE2C-4394-A166-275C08C66C75}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{18108E6A-DE2C-4394-A166-275C08C66C75}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9D762914-06CC-4692-8246-9FFA50B1B7CD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9D762914-06CC-4692-8246-9FFA50B1B7CD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9D762914-06CC-4692-8246-9FFA50B1B7CD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9D762914-06CC-4692-8246-9FFA50B1B7CD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{DF6C5324-CA7A-4F44-AE16-0CB0073BB846} = {3619BCE4-2C29-4D9D-94E9-AB1EA4023908}
+		{12759C97-90A2-4089-BC5F-481C964BE961} = {D49ADD3D-38FD-4590-9520-D93F765DC3A6}
+		{CEB84C0B-89C7-42DC-BA77-BEABEA952ADA} = {3619BCE4-2C29-4D9D-94E9-AB1EA4023908}
+		{2E29C413-E13E-4257-A564-7E21051DF948} = {D49ADD3D-38FD-4590-9520-D93F765DC3A6}
+		{9D762914-06CC-4692-8246-9FFA50B1B7CD} = {D49ADD3D-38FD-4590-9520-D93F765DC3A6}
 	EndGlobalSection
 EndGlobal

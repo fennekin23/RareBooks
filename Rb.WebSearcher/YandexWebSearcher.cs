@@ -1,100 +1,33 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data.Entity.Migrations;
 using System.Linq;
-using Rb.Common;
-using Rb.Data;
+using Rb.Common.Enums;
+using Rb.Common.WebSearcher;
 using Rb.Data.Entities;
+using Rb.RequestFactories.Yandex;
 using Rb.Yandex.Response;
 
 namespace Rb.Yandex.WebSearcher
 {
-    public class YandexWebSearcher
+    public class YandexWebSearcher : WebSearcherBase
     {
         private readonly YaSearchEngine m_searchEngine;
-        private int m_availableRequests;
-        private List<Book> m_books;
-        private List<RequestType> m_requestTypes;
 
         public YandexWebSearcher()
         {
-            Initialize();
             m_searchEngine = new YaSearchEngine();
-            m_availableRequests = 10000;
+            AvailableRequests = 10000;
+            Books = GetBooks(i => !i.ProcessedByYandex);
         }
 
-        private static List<Book> GetBooks()
-        {
-            List<Book> result;
-            using (var dbContext = new RbDbContext())
-            {
-                result = dbContext.Books.Where(i => !i.ProcessedByYandex).OrderBy(i => i.InternalId).ToList();
-            }
-            return result;
-        }
-
-        private static RequestType GetLastRequestType(Book book)
-        {
-            RequestType result;
-            using (var dbContext = new RbDbContext())
-            {
-                result = dbContext.YandexSearchResults
-                    .Where(i => i.BookId == book.InternalId)
-                    .Select(i => i.RequestType)
-                    .OrderBy(i => (int) i)
-                    .ToList()
-                    .DefaultIfEmpty(RequestType.Unknown)
-                    .LastOrDefault();
-            }
-            return result;
-        }
-
-        private static List<RequestType> GetRequestTypes()
-        {
-            List<RequestType> result;
-            using (var dbContext = new RbDbContext())
-            {
-                result = dbContext.Requests.Select(i => i.Type).OrderBy(i => (int) i).ToList();
-            }
-            return result;
-        }
-
-        private void Initialize()
-        {
-            m_books = GetBooks();
-            m_requestTypes = GetRequestTypes();
-        }
-
-        private static void SaveResult(YaSearchResult result, int bookId, RequestType requestType)
-        {
-            var results = YandexSearchResults(result, bookId, requestType).ToList();
-
-            using (var dbContext = new RbDbContext())
-            {
-                dbContext.YandexSearchResults.AddRange(results);
-                dbContext.SaveChanges();
-            }
-
-            Console.WriteLine("{0} results saved.", results.Count());
-        }
-
-        private static void UpdateBook(Book book)
-        {
-            using (var dbContext = new RbDbContext())
-            {
-                dbContext.Books.AddOrUpdate(i => i.InternalId, book);
-                dbContext.SaveChanges();
-            }
-        }
-
-
-        private static IEnumerable<YandexSearchResult> YandexSearchResults(YaSearchResult yaSearchResult, int bookId, RequestType requestType)
+        private static IEnumerable<YandexSearchResult> GetSearchResults(YaSearchResult yaSearchResult, Book book, RequestType requestType)
         {
             var documentsFound = yaSearchResult.Response.Results.Grouping.FoundDocuments.DefaultIfEmpty(new Found()).FirstOrDefault().Count;
             var result = yaSearchResult.Response.Results.Grouping.Groups.SelectMany(g => g.Documents)
                 .Select(d => new YandexSearchResult
                 {
-                    BookId = bookId,
+                    BookId = book.Id,
+                    BookInternalId = book.InternalId,
                     RequestType = requestType,
                     QueryString = yaSearchResult.Request.Query,
                     FoundDocuments = documentsFound,
@@ -112,39 +45,39 @@ namespace Rb.Yandex.WebSearcher
 
         public void Process()
         {
-            if (m_books.Count == 0)
+            if (Books.Count == 0)
             {
                 Console.WriteLine("There are no books for yandex processing.");
                 return;
             }
 
-            for (var i = 0; i < m_books.Count; i++)
+            foreach (var book in Books)
             {
-                var lastRequestType = GetLastRequestType(m_books[i]);
-                var requestStartIndex = m_requestTypes.IndexOf(lastRequestType) + 1;
+                var lastRequestType = GetLastRequest<YandexSearchResult>(book);
+                var requestStartIndex = RequestTypes.IndexOf(lastRequestType) + 1;
 
-                for (var j = requestStartIndex; j < m_requestTypes.Count; j++)
+                for (var j = requestStartIndex; j < RequestTypes.Count; j++)
                 {
-                    if (m_availableRequests == 0)
+                    if (AvailableRequests == 0)
                     {
                         Console.WriteLine("There are no available requests for today...");
                         return;
                     }
 
-                    var yandexLang = YaLanguageMapper.GetLang(m_books[i].LanguageCode);
+                    var request = YaRequestFactory.GetRequest(book, RequestTypes[j]);
 
-                    if (string.IsNullOrEmpty(yandexLang) && m_requestTypes[j].IsLanguageSpecific())
+                    if (string.IsNullOrEmpty(request.Query))
                     {
                         continue;
                     }
 
-                    var request = YaRequestFactory.GetRequest(m_books[i], m_requestTypes[j]);
                     var result = m_searchEngine.Execute(request);
 
                     if (result.Response.Error == null)
                     {
-                        m_availableRequests--;
-                        SaveResult(result, m_books[i].InternalId, m_requestTypes[j]);
+                        AvailableRequests--;
+                        var results = GetSearchResults(result, book, RequestTypes[j]).ToList();
+                        SaveResults(results);
                     }
                     else
                     {
@@ -152,7 +85,7 @@ namespace Rb.Yandex.WebSearcher
 
                         if (result.Response.Error.Code == 15)
                         {
-                            m_availableRequests--;
+                            AvailableRequests--;
                         }
                         if (result.Response.Error.Code == 32)
                         {
@@ -161,8 +94,8 @@ namespace Rb.Yandex.WebSearcher
                     }
                 }
 
-                m_books[i].ProcessedByYandex = true;
-                UpdateBook(m_books[i]);
+                book.ProcessedByYandex = true;
+                UpdateBook(book);
             }
         }
     }

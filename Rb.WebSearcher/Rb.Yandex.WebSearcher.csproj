@@ -32,10 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\packages\EntityFramework.6.1.1\lib\net45\EntityFramework.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
   </ItemGroup>
@@ -49,6 +45,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rb.Common.WebSearcher\Rb.Common.WebSearcher.csproj">
+      <Project>{9d762914-06cc-4692-8246-9ffa50b1b7cd}</Project>
+      <Name>Rb.Common.WebSearcher</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rb.Common\Rb.Common.csproj">
       <Project>{100059e8-ccc0-4a2f-9092-3de9aa9cacb3}</Project>
       <Name>Rb.Common</Name>
@@ -56,6 +56,10 @@
     <ProjectReference Include="..\Rb.Data\Rb.Data.csproj">
       <Project>{14D4B5D8-67BB-4409-8771-CC6CBE6A6827}</Project>
       <Name>Rb.Data</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rb.RequestFactories\Rb.RequestFactories.csproj">
+      <Project>{18108e6a-de2c-4394-a166-275c08c66c75}</Project>
+      <Name>Rb.RequestFactories</Name>
     </ProjectReference>
     <ProjectReference Include="..\Rb.Yandex\Rb.Yandex.csproj">
       <Project>{df6c5324-ca7a-4f44-ae16-0cb0073bb846}</Project>
