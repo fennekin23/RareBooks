@@ -4,12 +4,13 @@ namespace Rb.Google.WebSearcher
 {
     internal class Program
     {
-        private static void Main(string[] args)
+        private static void Main()
         {
-            var googleWebSearcher = new GoogleWebSearcher();
+            var googleWebSearcher = new GoogleWebSearcher(100);
             googleWebSearcher.Process();
 
-            Console.WriteLine("Done!");
+            Console.WriteLine("########## Done! ##########");
+            Console.ReadLine();
         }
     }
 }

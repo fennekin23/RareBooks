@@ -14,8 +14,9 @@ namespace Rb.Common.WebSearcher
         protected List<Book> Books;
         protected List<RequestType> RequestTypes;
 
-        protected WebSearcherBase()
+        protected WebSearcherBase(int availableRequests)
         {
+            AvailableRequests = availableRequests;
             RequestTypes = GetRequestTypes();
         }
 

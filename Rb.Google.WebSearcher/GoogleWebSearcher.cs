@@ -10,10 +10,10 @@ namespace Rb.Google.WebSearcher
     {
         private readonly GoSearchEngine m_searchEngine;
 
-        public GoogleWebSearcher()
+        public GoogleWebSearcher(int availableRequests)
+            : base(availableRequests)
         {
             m_searchEngine = new GoSearchEngine();
-            AvailableRequests = 7;
             Books = GetBooks(i => !i.ProcessedByGoogle);
         }
 
@@ -67,21 +67,25 @@ namespace Rb.Google.WebSearcher
 
                     if (string.IsNullOrEmpty(request.Query))
                     {
+                        Console.WriteLine("Empty query, continue...");
                         continue;
                     }
 
+                    Console.WriteLine("Getting result for {0}", book.Title);
                     var result = m_searchEngine.Execute(request);
 
                     if (result != null)
                     {
                         AvailableRequests--;
                         SaveResult(GetSerchResult(result, book, RequestTypes[j]));
+                        Console.WriteLine("Saved {0} result(s) for {1}", result.ResultItems.Count, book.Title);
                     }
                 }
 
                 book.ProcessedByGoogle = true;
-                
+
                 UpdateBook(book);
+                Console.WriteLine("Updated book status {0}", book.Title);
             }
         }
     }

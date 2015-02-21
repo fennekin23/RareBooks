@@ -13,10 +13,10 @@ namespace Rb.Yandex.WebSearcher
     {
         private readonly YaSearchEngine m_searchEngine;
 
-        public YandexWebSearcher()
+        public YandexWebSearcher(int availableRequests)
+            : base(availableRequests)
         {
             m_searchEngine = new YaSearchEngine();
-            AvailableRequests = 10000;
             Books = GetBooks(i => !i.ProcessedByYandex);
         }
 

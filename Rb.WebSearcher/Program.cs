@@ -6,11 +6,11 @@ namespace Rb.Yandex.WebSearcher
     {
         private static void Main()
         {
-            var yandexWebSearcher = new YandexWebSearcher();
+            var yandexWebSearcher = new YandexWebSearcher(1000);
             yandexWebSearcher.Process();
 
-            Console.WriteLine("Done!");
-            Console.Read();
+            Console.WriteLine("########## Done! ##########");
+            Console.ReadLine();
         }
     }
 }
