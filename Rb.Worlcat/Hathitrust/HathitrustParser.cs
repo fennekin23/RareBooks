@@ -7,11 +7,6 @@ namespace Rb.WebParsers.Hathitrust
 {
     public class HathitrustParser
     {
-        private static HtmlNode FindRow(IEnumerable<HtmlNode> rows, string name)
-        {
-            return rows.FirstOrDefault(i => i.Descendants("th").ToArray()[0].InnerText.Trim() == name);
-        }
-
         public static HathitrustParserResult Parse(string url)
         {
             Console.WriteLine("Start parsing: " + url);
@@ -47,6 +42,11 @@ namespace Rb.WebParsers.Hathitrust
             };
 
             return result;
+        }
+
+        private static HtmlNode FindRow(IEnumerable<HtmlNode> rows, string name)
+        {
+            return rows.FirstOrDefault(i => i.Descendants("th").ToArray()[0].InnerText.Trim() == name);
         }
     }
 }

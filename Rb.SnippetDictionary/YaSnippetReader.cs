@@ -14,7 +14,18 @@ namespace Rb.SnippetDictionary
 
         public override List<string> Read()
         {
-            var snippets = SearchResultRepository.Items.Select(i => i.DocumentPassages).ToList();
+            var snippets = SearchResultRepository.Items
+                .Select(i => i.DocumentPassages)
+                .ToList();
+            return snippets;
+        }
+
+        public override List<string> Read(int fromYear, int toYear)
+        {
+            var snippets = SearchResultRepository.Items
+                .Where(i => i.Book.PublishYear >= fromYear && i.Book.PublishYear <= toYear)
+                .Select(i => i.DocumentPassages)
+                .ToList();
             return snippets;
         }
     }

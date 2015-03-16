@@ -18,6 +18,11 @@ namespace Rb.Data
             m_table = m_dbContext.Set<T>();
         }
 
+        public void Dispose()
+        {
+            m_dbContext.Dispose();
+        }
+
         public IQueryable<T> Items
         {
             get { return m_table; }
@@ -55,11 +60,6 @@ namespace Rb.Data
         {
             m_table.AddOrUpdate(i => i.Id, entity);
             m_dbContext.SaveChanges();
-        }
-
-        public void Dispose()
-        {
-            m_dbContext.Dispose();
         }
     }
 }

@@ -20,16 +20,6 @@ namespace Rb.Common.WebSearcher
             RequestTypes = GetRequestTypes();
         }
 
-        private static List<RequestType> GetRequestTypes()
-        {
-            List<RequestType> result;
-            using (var repository = new GenericRepository<Request>())
-            {
-                result = repository.Items.Select(i => i.Type).OrderBy(i => (int) i).ToList();
-            }
-            return result;
-        }
-
         protected List<Book> GetBooks(Expression<Func<Book, bool>> filterRule)
         {
             List<Book> result;
@@ -78,6 +68,16 @@ namespace Rb.Common.WebSearcher
             {
                 repository.Update(book);
             }
+        }
+
+        private static List<RequestType> GetRequestTypes()
+        {
+            List<RequestType> result;
+            using (var repository = new GenericRepository<Request>())
+            {
+                result = repository.Items.Select(i => i.Type).OrderBy(i => (int) i).ToList();
+            }
+            return result;
         }
     }
 }

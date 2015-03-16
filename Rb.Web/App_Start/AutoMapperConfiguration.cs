@@ -7,6 +7,11 @@ namespace Rb.Web
 {
     public class AutoMapperConfiguration
     {
+        public static void Configure()
+        {
+            Mapper.Initialize(x => GetConfiguration(Mapper.Configuration));
+        }
+
         private static void GetConfiguration(IConfiguration configuration)
         {
             var profiles = Assembly.GetExecutingAssembly().GetTypes().Where(x => typeof (Profile).IsAssignableFrom(x));
@@ -14,11 +19,6 @@ namespace Rb.Web
             {
                 configuration.AddProfile(Activator.CreateInstance(profile) as Profile);
             }
-        }
-
-        public static void Configure()
-        {
-            Mapper.Initialize(x => GetConfiguration(Mapper.Configuration));
         }
     }
 }

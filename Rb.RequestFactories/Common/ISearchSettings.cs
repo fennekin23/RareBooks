@@ -4,11 +4,11 @@ namespace Rb.RequestFactories.Common
 {
     public interface ISearchSettings
     {
+        string OrKey { get; }
+
         string SiteKey { get; }
 
         string TitleKey { get; }
-
-        string OrKey { get; }
 
         string GetLanuage(LanguageCode code);
     }

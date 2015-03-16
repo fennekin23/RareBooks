@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace Rb.Data.Entities
+﻿namespace Rb.Data.Entities
 {
     public class YandexSearchResult : BaseSearchResult
     {

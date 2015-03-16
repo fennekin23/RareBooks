@@ -10,9 +10,13 @@ namespace Rb.WebParsers.Hathitrust
         }
 
         public string Author { get; set; }
+
         public string Description { get; set; }
+
         public string Language { get; set; }
+
         public List<string> Links { get; set; }
+
         public string Publisher { get; set; }
     }
 }

@@ -1,44 +1,9 @@
+using System.Data.Entity.Migrations;
+
 namespace Rb.Data.Migrations
 {
-    using System;
-    using System.Data.Entity.Migrations;
-    
     public partial class AddGoogleSearchResult : DbMigration
     {
-        public override void Up()
-        {
-            CreateTable(
-                "dbo.GoogleSearchResult",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        BookId = c.Int(nullable: false),
-                        BookInternalId = c.Int(nullable: false),
-                        QueryString = c.String(),
-                        RequestType = c.Int(nullable: false),
-                        TimeStamp = c.DateTime(nullable: false),
-                        TotalResults = c.Long(nullable: false),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.Book", t => new { t.BookId, t.BookInternalId }, cascadeDelete: true)
-                .Index(t => new { t.BookId, t.BookInternalId });
-            
-            CreateTable(
-                "dbo.GoogleSearchResultItem",
-                c => new
-                    {
-                        Id = c.Int(nullable: false, identity: true),
-                        Snippet = c.String(),
-                        Title = c.String(),
-                        Url = c.String(),
-                        SearchResult_Id = c.Int(),
-                    })
-                .PrimaryKey(t => t.Id)
-                .ForeignKey("dbo.GoogleSearchResult", t => t.SearchResult_Id)
-                .Index(t => t.SearchResult_Id);
-            
-        }
-        
         public override void Down()
         {
             DropForeignKey("dbo.GoogleSearchResultItem", "SearchResult_Id", "dbo.GoogleSearchResult");
@@ -47,6 +12,39 @@ namespace Rb.Data.Migrations
             DropIndex("dbo.GoogleSearchResult", new[] { "BookId", "BookInternalId" });
             DropTable("dbo.GoogleSearchResultItem");
             DropTable("dbo.GoogleSearchResult");
+        }
+
+        public override void Up()
+        {
+            CreateTable(
+                "dbo.GoogleSearchResult",
+                c => new
+                {
+                    Id = c.Int(false, true),
+                    BookId = c.Int(false),
+                    BookInternalId = c.Int(false),
+                    QueryString = c.String(),
+                    RequestType = c.Int(false),
+                    TimeStamp = c.DateTime(false),
+                    TotalResults = c.Long(false),
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.Book", t => new { t.BookId, t.BookInternalId }, true)
+                .Index(t => new { t.BookId, t.BookInternalId });
+
+            CreateTable(
+                "dbo.GoogleSearchResultItem",
+                c => new
+                {
+                    Id = c.Int(false, true),
+                    Snippet = c.String(),
+                    Title = c.String(),
+                    Url = c.String(),
+                    SearchResult_Id = c.Int(),
+                })
+                .PrimaryKey(t => t.Id)
+                .ForeignKey("dbo.GoogleSearchResult", t => t.SearchResult_Id)
+                .Index(t => t.SearchResult_Id);
         }
     }
 }

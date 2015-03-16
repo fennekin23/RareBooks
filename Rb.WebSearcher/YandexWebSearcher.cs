@@ -20,29 +20,6 @@ namespace Rb.Yandex.WebSearcher
             Books = GetBooks(i => !i.ProcessedByYandex);
         }
 
-        private static IEnumerable<YandexSearchResult> GetSearchResults(YaSearchResult yaSearchResult, Book book, RequestType requestType)
-        {
-            var documentsFound = yaSearchResult.Response.Results.Grouping.FoundDocuments.DefaultIfEmpty(new Found()).FirstOrDefault().Count;
-            var result = yaSearchResult.Response.Results.Grouping.Groups.SelectMany(g => g.Documents)
-                .Select(d => new YandexSearchResult
-                {
-                    BookId = book.Id,
-                    BookInternalId = book.InternalId,
-                    RequestType = requestType,
-                    QueryString = yaSearchResult.Request.Query,
-                    FoundDocuments = documentsFound,
-                    DocumentTitle = d.Title,
-                    DocumentDomain = d.Domain,
-                    DocumentSize = d.Size,
-                    DocumentPassages = string.Join(Environment.NewLine, d.Passages.Select(i => i.Text)),
-                    DocumentLanguage = d.Properties.Language,
-                    DocumentUrl = d.Url,
-                    TimeStamp = yaSearchResult.Response.DateTime
-                });
-
-            return result;
-        }
-
         public void Process()
         {
             if (Books.Count == 0)
@@ -97,6 +74,29 @@ namespace Rb.Yandex.WebSearcher
                 book.ProcessedByYandex = true;
                 UpdateBook(book);
             }
+        }
+
+        private static IEnumerable<YandexSearchResult> GetSearchResults(YaSearchResult yaSearchResult, Book book, RequestType requestType)
+        {
+            var documentsFound = yaSearchResult.Response.Results.Grouping.FoundDocuments.DefaultIfEmpty(new Found()).FirstOrDefault().Count;
+            var result = yaSearchResult.Response.Results.Grouping.Groups.SelectMany(g => g.Documents)
+                .Select(d => new YandexSearchResult
+                {
+                    BookId = book.Id,
+                    BookInternalId = book.InternalId,
+                    RequestType = requestType,
+                    QueryString = yaSearchResult.Request.Query,
+                    FoundDocuments = documentsFound,
+                    DocumentTitle = d.Title,
+                    DocumentDomain = d.Domain,
+                    DocumentSize = d.Size,
+                    DocumentPassages = string.Join(Environment.NewLine, d.Passages.Select(i => i.Text)),
+                    DocumentLanguage = d.Properties.Language,
+                    DocumentUrl = d.Url,
+                    TimeStamp = yaSearchResult.Response.DateTime
+                });
+
+            return result;
         }
     }
 }

@@ -17,31 +17,6 @@ namespace Rb.Google.WebSearcher
             Books = GetBooks(i => !i.ProcessedByGoogle);
         }
 
-        private static GoogleSearchResult GetSerchResult(GoSearchResult result, Book book, RequestType requestType)
-        {
-            var googleSearchResult = new GoogleSearchResult
-            {
-                BookId = book.Id,
-                BookInternalId = book.InternalId,
-                QueryString = result.Query,
-                RequestType = requestType,
-                TimeStamp = DateTime.Now,
-                TotalResults = result.TotalResults
-            };
-
-            foreach (var goSearchResultItem in result.ResultItems)
-            {
-                googleSearchResult.Items.Add(new GoogleSearchResultItem
-                {
-                    Snippet = goSearchResultItem.Snippet,
-                    Title = goSearchResultItem.Title,
-                    Url = goSearchResultItem.Url
-                });
-            }
-
-            return googleSearchResult;
-        }
-
         public void Process()
         {
             if (Books.Count == 0)
@@ -87,6 +62,31 @@ namespace Rb.Google.WebSearcher
                 UpdateBook(book);
                 Console.WriteLine("Updated book status {0}", book.Title);
             }
+        }
+
+        private static GoogleSearchResult GetSerchResult(GoSearchResult result, Book book, RequestType requestType)
+        {
+            var googleSearchResult = new GoogleSearchResult
+            {
+                BookId = book.Id,
+                BookInternalId = book.InternalId,
+                QueryString = result.Query,
+                RequestType = requestType,
+                TimeStamp = DateTime.Now,
+                TotalResults = result.TotalResults
+            };
+
+            foreach (var goSearchResultItem in result.ResultItems)
+            {
+                googleSearchResult.Items.Add(new GoogleSearchResultItem
+                {
+                    Snippet = goSearchResultItem.Snippet,
+                    Title = goSearchResultItem.Title,
+                    Url = goSearchResultItem.Url
+                });
+            }
+
+            return googleSearchResult;
         }
     }
 }

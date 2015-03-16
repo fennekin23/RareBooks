@@ -14,13 +14,6 @@ namespace Rb.Google
         private const string c_apiKey = "AIzaSyDpR0OIkr9VgNFFLfyB_Nu8_n1KaB4KhFs";
         private const string c_cx = "006957405328681281791:xi9hmu2nbm0";
 
-        private static CseResource.ListRequest.LrEnum GetLanguageCode(string value)
-        {
-            return Enum.GetValues(typeof (CseResource.ListRequest.LrEnum))
-                .Cast<CseResource.ListRequest.LrEnum>()
-                .FirstOrDefault(i => GetText(i) == value);
-        }
-
         public GoSearchResult Execute(GoSearchRequest searchRequest)
         {
             var svc = new CustomsearchService(new BaseClientService.Initializer { ApiKey = c_apiKey });
@@ -46,6 +39,13 @@ namespace Rb.Google
             var name = value.ToString();
             var attribute = typeof (CseResource.ListRequest.LrEnum).GetField(name).GetCustomAttribute<StringValueAttribute>();
             return attribute.Text;
+        }
+
+        private static CseResource.ListRequest.LrEnum GetLanguageCode(string value)
+        {
+            return Enum.GetValues(typeof (CseResource.ListRequest.LrEnum))
+                .Cast<CseResource.ListRequest.LrEnum>()
+                .FirstOrDefault(i => GetText(i) == value);
         }
     }
 }

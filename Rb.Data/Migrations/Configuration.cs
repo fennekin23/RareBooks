@@ -14,6 +14,12 @@ namespace Rb.Data.Migrations
             AutomaticMigrationsEnabled = false;
         }
 
+        protected override void Seed(RbDbContext context)
+        {
+            //  This method will be called after migrating to the latest version.
+            SeedSearchRequests(context);
+        }
+
         private static void SeedSearchRequests(RbDbContext context)
         {
             Enum.GetValues(typeof (RequestType))
@@ -23,12 +29,6 @@ namespace Rb.Data.Migrations
                 .ForEach(i => context.Requests.AddOrUpdate(r => r.Type, i));
 
             context.SaveChanges();
-        }
-
-        protected override void Seed(RbDbContext context)
-        {
-            //  This method will be called after migrating to the latest version.
-            SeedSearchRequests(context);
         }
     }
 }

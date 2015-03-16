@@ -10,5 +10,7 @@ namespace Rb.SnippetDictionary
         protected IRepository<T> SearchResultRepository { get; set; }
 
         public abstract List<string> Read();
+
+        public abstract List<string> Read(int fromYear, int toYear);
     }
 }
