@@ -1,19 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using Rb.BookClassifier.Book;
-using Rb.BookClassifier.Neural;
+using Rb.BookClassifier.Binary.Book;
+using Rb.BookClassifier.Binary.Neural;
+using Rb.BookClassifier.Common.Neural;
+using Rb.BookClassifier.Common.Neural.Settings;
 
-namespace Rb.BookClassifier
+namespace Rb.BookClassifier.Binary
 {
     internal class Program
     {
         private static void Main()
         {
             var testData = TestSetReader.Read("../../rarebooks.xlsx");
-
-            var testSetRanges = new TestBookRanges(testData);
+            var ranges = new TestBookRanges(testData);
+            var vectorizer = new TestBookVectorizer(ranges);
 
             Console.WriteLine("Test set count: {0}", testData.Count);
 
@@ -27,22 +28,23 @@ namespace Rb.BookClassifier
             Console.WriteLine("Positiv set count: {0}", trainSet.Count(i => i.IsMoreInfoExist));
             Console.WriteLine("Negativ set count: {0}", trainSet.Count(i => !i.IsMoreInfoExist));
 
-            var learningSettings = new LearningSettings(alpha: 0.95, learningRate: 0.35, momentum: 0.8);
+            var learningSettings = new LearningSettings(alpha: 0.95, learningRate: 0.35, momentum: 0.75);
+            var stopConditions = new StopConditions(StopType.Error, maxMainSquareError: 1e-4);
 
-            var stopConditions = new StopConditions(StopType.Error, 60000, 1e-4, TimeSpan.FromSeconds(30));
+            var inputSize = vectorizer.GetVector(trainSet[0]).Length;
 
-            var inputSize = trainSet[0].Vectorize(testSetRanges).Length;
+            var network = new Network(learningSettings, inputSize, inputSize, 1);
+            network.Learn(trainSet.Select(i => new TestCase(i, vectorizer)).Cast<ITestCase>().ToList(), stopConditions);
 
-            var network = new Network(learningSettings, inputSize, inputSize / 2, 1);
-            network.Learn(trainSet.Select(i => new TestCase(i, testSetRanges)).ToList(), stopConditions);
-
-            var testSet = testData.Where(i => !trainSet.Contains(i)).Select(i => new TestCase(i, testSetRanges)).ToList();
+            var testSet = testData
+                .Where(i => !trainSet.Contains(i))
+                .Select(i => new TestCase(i, vectorizer))
+                .Cast<ITestCase>()
+                .ToList();
             var errors = network.Check(testSet);
             var errorsPercentage = Math.Round((double) errors.Count / testSet.Count * 100, 2);
 
             Console.WriteLine("Errors count: {0} - {1}%", errors.Count, errorsPercentage);
-
-            File.WriteAllText("../errors.txt", string.Join(Environment.NewLine, errors));
 
             if (errorsPercentage < 30)
             {

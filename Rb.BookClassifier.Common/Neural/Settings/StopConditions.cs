@@ -1,8 +1,8 @@
 ﻿using System;
 
-namespace Rb.BookClassifier.Neural
+namespace Rb.BookClassifier.Common.Neural.Settings
 {
-    internal class StopConditions
+    public class StopConditions
     {
         private readonly StopType stopType;
 

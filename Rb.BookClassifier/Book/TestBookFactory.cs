@@ -6,7 +6,7 @@ using Rb.Common.Enums;
 using Rb.Data;
 using Rb.Data.Entities;
 
-namespace Rb.BookClassifier.Book
+namespace Rb.BookClassifier.Binary.Book
 {
     internal class TestBookFactory
     {

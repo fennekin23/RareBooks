@@ -1,32 +1,33 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Rb.BookClassifier.Common.Book;
 using Rb.Common;
 
-namespace Rb.BookClassifier.Book
+namespace Rb.BookClassifier.Binary.Book
 {
-    internal class TestBookRanges
+    internal class TestBookRanges : ITestBookRanges
     {
         private readonly List<TestBook> testBooks;
 
         public TestBookRanges(List<TestBook> testBooks)
         {
             this.testBooks = testBooks;
-            Author = GetAuthorRange();
-            Language = GetLanguageRange();
-            Title = GetTitleRange();
-            YandexResults = GetYandexResultsRange();
-            Year = GetYearRange();
+
+
+            //Author = GetAuthorRange();
+            //Language = GetLanguageRange();
+            //Title = GetTitleRange();
+            //YandexResults = GetYandexResultsRange();
+            //Year = GetYearRange();
+
+            Author = new Range(0, 80);
+            Language = new Range(0, 14);
+            Title = new Range(5, 247);
+            YandexResults = new Range(3, 11111452);
+            Year = new Range(1497, 1918);
         }
 
-        public Range Author { get; private set; }
-
-        public Range Language { get; private set; }
-
-        public Range Title { get; private set; }
-
         public Range YandexResults { get; private set; }
-
-        public Range Year { get; private set; }
 
         private Range GetAuthorRange()
         {
@@ -62,5 +63,13 @@ namespace Rb.BookClassifier.Book
             var max = testBooks.Max(i => i.Year);
             return new Range(min, max);
         }
+
+        public Range Author { get; private set; }
+
+        public Range Language { get; private set; }
+
+        public Range Title { get; private set; }
+
+        public Range Year { get; private set; }
     }
 }

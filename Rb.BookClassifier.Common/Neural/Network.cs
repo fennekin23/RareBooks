@@ -4,14 +4,15 @@ using System.Diagnostics;
 using AForge;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
-using Rb.BookClassifier.Book;
+using Rb.BookClassifier.Common.Book;
+using Rb.BookClassifier.Common.Neural.Settings;
 
-namespace Rb.BookClassifier.Neural
+namespace Rb.BookClassifier.Common.Neural
 {
-    internal class Network
+    public class Network
     {
-        private ActivationNetwork network;
         private readonly BackPropagationLearning teacher;
+        private ActivationNetwork network;
 
         public Network(LearningSettings learningSettings, int inputSize, params int[] layers)
         {
@@ -24,13 +25,14 @@ namespace Rb.BookClassifier.Neural
             };
         }
 
-        public List<TestBook> Check(List<TestCase> testSet)
+        public List<ITestBook> Check(List<ITestCase> testSet)
         {
-            var errors = new List<TestBook>();
+            var errors = new List<ITestBook>();
             foreach (var test in testSet)
             {
                 var networkResult = network.Compute(test.Input);
-                if (Math.Abs(networkResult[0] - test.Output[0]) > 0.4)
+
+                if (GetAverageOutputError(networkResult, test.Output) > 0.4)
                 {
                     errors.Add(test.TestBook);
                 }
@@ -39,7 +41,7 @@ namespace Rb.BookClassifier.Neural
             return errors;
         }
 
-        public Dictionary<int, double> Learn(List<TestCase> trainSet, StopConditions stopConditions)
+        public Dictionary<int, double> Learn(List<ITestCase> trainSet, StopConditions stopConditions)
         {
             var learnHistory = new Dictionary<int, double>();
 
@@ -75,12 +77,25 @@ namespace Rb.BookClassifier.Neural
 
         public void Load(string path)
         {
-            network = (ActivationNetwork)AForge.Neuro.Network.Load(path);
+            network = (ActivationNetwork) AForge.Neuro.Network.Load(path);
         }
 
         public void Save(string path)
         {
             network.Save(path);
+        }
+
+        private static double GetAverageOutputError(double[] networkOutput, double[] testOutput)
+        {
+            var totalError = 0.0;
+            var outputsCount = networkOutput.Length;
+
+            for (var i = 0; i < networkOutput.Length; i++)
+            {
+                totalError += Math.Abs(networkOutput[i] - testOutput[i]);
+            }
+
+            return totalError / outputsCount;
         }
     }
 }

@@ -1,6 +1,6 @@
-﻿namespace Rb.BookClassifier.Neural
+﻿namespace Rb.BookClassifier.Common.Neural.Settings
 {
-    internal class LearningSettings
+    public class LearningSettings
     {
         public LearningSettings(double alpha = 0.5, double learningRate = 0.5, double momentum = 0.0)
         {

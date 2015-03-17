@@ -2,7 +2,7 @@
 using System.IO;
 using OfficeOpenXml;
 
-namespace Rb.BookClassifier.Book
+namespace Rb.BookClassifier.Binary.Book
 {
     internal class TestSetWriter
     {

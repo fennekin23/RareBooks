@@ -1,24 +1,22 @@
-﻿using System.Diagnostics;
-using Rb.BookClassifier.Book;
+﻿using Rb.BookClassifier.Binary.Book;
+using Rb.BookClassifier.Common.Book;
+using Rb.BookClassifier.Common.Neural;
 
-namespace Rb.BookClassifier.Neural
+namespace Rb.BookClassifier.Binary.Neural
 {
-    internal class TestCase
+    internal class TestCase : ITestCase
     {
-        public TestCase(TestBook testBook, TestBookRanges ranges)
+        public TestCase(TestBook testBook, TestBookVectorizer vectorizer)
         {
-            Input = testBook.Vectorize(ranges);
+            Input = vectorizer.GetVector(testBook);
             Output = new[] { testBook.IsMoreInfoExist ? 1.0 : 0.0 };
             TestBook = testBook;
         }
 
-        [DebuggerDisplay("[{Input.Length}]")]
         public double[] Input { get; set; }
 
-        [DebuggerDisplay("{Output[0]}")]
         public double[] Output { get; set; }
 
-        [DebuggerDisplay("{TestBook.Title")]
-        public TestBook TestBook { get; set; }
+        public ITestBook TestBook { get; set; }
     }
 }

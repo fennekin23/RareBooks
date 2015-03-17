@@ -7,8 +7,8 @@
     <ProjectGuid>{1512CF41-1D15-4B0C-9188-45CC87457083}</ProjectGuid>
     <OutputType>Exe</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Rb.BookClassifier</RootNamespace>
-    <AssemblyName>Rb.BookClassifier</AssemblyName>
+    <RootNamespace>Rb.BookClassifier.Binary</RootNamespace>
+    <AssemblyName>Rb.BookClassifier.Binary</AssemblyName>
     <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -64,13 +64,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book\TestBookRangeFactory.cs" />
     <Compile Include="Book\TestBookRanges.cs" />
     <Compile Include="Book\TestSetWriter.cs" />
-    <Compile Include="Neural\LearningSettings.cs" />
-    <Compile Include="Neural\Network.cs" />
-    <Compile Include="Neural\StopType.cs" />
-    <Compile Include="Neural\StopConditions.cs" />
     <Compile Include="Neural\TestCase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -84,6 +79,10 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Rb.BookClassifier.Common\Rb.BookClassifier.Common.csproj">
+      <Project>{7DDE1440-32F7-4BF8-A53C-D2790CCE71DB}</Project>
+      <Name>Rb.BookClassifier.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Rb.Common\Rb.Common.csproj">
       <Project>{100059e8-ccc0-4a2f-9092-3de9aa9cacb3}</Project>
       <Name>Rb.Common</Name>
@@ -93,6 +92,7 @@
       <Name>Rb.Data</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
