@@ -66,6 +66,7 @@
   <ItemGroup>
     <Compile Include="Book\TestBookRanges.cs" />
     <Compile Include="Book\TestSetWriter.cs" />
+    <Compile Include="Classifier.cs" />
     <Compile Include="Neural\TestCase.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

@@ -11,7 +11,7 @@ namespace Rb.Common
 
         public static long RoundOff(this long i, int number)
         {
-            return ((long)Math.Round(i / (double)number)) * number;
+            return ((long) Math.Round(i / (double) number)) * number;
         }
     }
 }

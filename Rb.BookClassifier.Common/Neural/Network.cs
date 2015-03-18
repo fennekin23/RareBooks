@@ -11,18 +11,23 @@ namespace Rb.BookClassifier.Common.Neural
 {
     public class Network
     {
+        private readonly ActivationNetwork network;
         private readonly BackPropagationLearning teacher;
-        private ActivationNetwork network;
 
         public Network(LearningSettings learningSettings, int inputSize, params int[] layers)
         {
-            Neuron.RandRange = new Range(-0.01f, 0.01f);
+            Neuron.RandRange = new Range(-0.1f, 0.1f);
             network = new ActivationNetwork(new SigmoidFunction(learningSettings.Alpha), inputSize, layers);
             teacher = new BackPropagationLearning(network)
             {
                 LearningRate = learningSettings.LearningRate,
                 Momentum = learningSettings.Momentum
             };
+        }
+
+        public Network(string path)
+        {
+            network = (ActivationNetwork) AForge.Neuro.Network.Load(path);
         }
 
         public List<ITestBook> Check(List<ITestCase> testSet)
@@ -73,11 +78,6 @@ namespace Rb.BookClassifier.Common.Neural
             stopWatch.Stop();
 
             return learnHistory;
-        }
-
-        public void Load(string path)
-        {
-            network = (ActivationNetwork) AForge.Neuro.Network.Load(path);
         }
 
         public void Save(string path)

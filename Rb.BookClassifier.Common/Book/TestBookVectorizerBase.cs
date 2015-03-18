@@ -57,7 +57,7 @@ namespace Rb.BookClassifier.Common.Book
 
         protected double[] GetYearVector(int year, Range range)
         {
-            const int yearPeriod = 40;
+            const int yearPeriod = 45;
             var minRoundedYear = range.Min.RoundOff(yearPeriod);
             var maxRoundedYear = range.Max.RoundOff(yearPeriod);
             var numberOfBits = ((maxRoundedYear - minRoundedYear) / yearPeriod) + 1;

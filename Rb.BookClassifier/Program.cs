@@ -1,10 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using Rb.BookClassifier.Binary.Book;
-using Rb.BookClassifier.Binary.Neural;
-using Rb.BookClassifier.Common.Neural;
-using Rb.BookClassifier.Common.Neural.Settings;
 
 namespace Rb.BookClassifier.Binary
 {
@@ -12,47 +7,35 @@ namespace Rb.BookClassifier.Binary
     {
         private static void Main()
         {
-            var testData = TestSetReader.Read("../../rarebooks.xlsx");
-            var ranges = new TestBookRanges(testData);
-            var vectorizer = new TestBookVectorizer(ranges);
+            StartApplication();
+        }
 
-            Console.WriteLine("Test set count: {0}", testData.Count);
+        private static void StartApplication()
+        {
+            Console.WriteLine("Learn / Check? [1/2]");
 
-            var trainSet = new List<TestBook>();
-            var positiv = testData.Where(i => i.IsMoreInfoExist).OrderBy(i => i.Title).ToList();
-            var negativ = testData.Where(i => !i.IsMoreInfoExist).OrderBy(i => i.Title).ToList();
-            trainSet.AddRange(positiv.Take((int)(positiv.Count * 0.8)));
-            trainSet.AddRange(negativ.Take((int)(negativ.Count * 0.8)));
+            var classifier = new Classifier();
 
-            Console.WriteLine("Train set count: {0}", trainSet.Count);
-            Console.WriteLine("Positiv set count: {0}", trainSet.Count(i => i.IsMoreInfoExist));
-            Console.WriteLine("Negativ set count: {0}", trainSet.Count(i => !i.IsMoreInfoExist));
+            var allowedOprations = new[] { "1", "2" };
+            var operation = Console.ReadLine();
 
-            var learningSettings = new LearningSettings(alpha: 0.95, learningRate: 0.35, momentum: 0.75);
-            var stopConditions = new StopConditions(StopType.Error, maxMainSquareError: 1e-4);
-
-            var inputSize = vectorizer.GetVector(trainSet[0]).Length;
-
-            var network = new Network(learningSettings, inputSize, inputSize, 1);
-            network.Learn(trainSet.Select(i => new TestCase(i, vectorizer)).Cast<ITestCase>().ToList(), stopConditions);
-
-            var testSet = testData
-                .Where(i => !trainSet.Contains(i))
-                .Select(i => new TestCase(i, vectorizer))
-                .Cast<ITestCase>()
-                .ToList();
-            var errors = network.Check(testSet);
-            var errorsPercentage = Math.Round((double) errors.Count / testSet.Count * 100, 2);
-
-            Console.WriteLine("Errors count: {0} - {1}%", errors.Count, errorsPercentage);
-
-            if (errorsPercentage < 30)
+            if (!allowedOprations.Contains(operation))
             {
-                network.Save("../networkSettings_" + errorsPercentage + ".txt");
-                Console.WriteLine("Settings saved");
+                Console.Clear();
+                StartApplication();
             }
 
-            Console.ReadLine();
+            if (operation == "1")
+            {
+                Console.WriteLine("Learning...");
+                classifier.Learn();
+            }
+
+            if (operation == "2")
+            {
+                Console.WriteLine("Checking...");
+                classifier.Check();
+            }
         }
     }
 }

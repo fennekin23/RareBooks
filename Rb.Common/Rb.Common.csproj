@@ -43,6 +43,7 @@
     <Compile Include="Enums\RequestType.cs" />
     <Compile Include="Extensions\EnumExtensions.cs" />
     <Compile Include="Extensions\IEnumerableExtensions.cs" />
+    <Compile Include="Extensions\ListExtensions.cs" />
     <Compile Include="Extensions\MathExtensions.cs" />
     <Compile Include="LanguageSpecificAttribute.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
