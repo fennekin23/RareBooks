@@ -29,10 +29,8 @@ namespace Rb.BookClassifier.Binary
         {
             if (File.Exists(networkSettingsFile))
             {
-                var network = new Network(networkSettingsFile);
-                var testSet = GetTestCases(testData);
-                var errors = network.Check(testSet);
-                PrintErrorStatistic(errors, testSet.Count);
+                var errors = CheckNetwork(testData);
+                PrintErrorStatistic(errors, testData.Count);
             }
             else
             {
@@ -61,6 +59,29 @@ namespace Rb.BookClassifier.Binary
             PrintErrorStatistic(errors, testSet.Count);
 
             SaveNetworkSettings(network);
+        }
+
+        public void SaveClassified()
+        {
+            if (File.Exists(networkSettingsFile))
+            {
+                var errors = CheckNetwork(testData).Select(i => i.InternalId).ToArray();
+                var classified = testData.Where(i => !errors.Contains(i.InternalId) && i.IsMoreInfoExist).ToList();
+                TestSetWriter.Write(classified, "Classified", testDataFile);
+            }
+            else
+            {
+                Console.WriteLine(networkSettingsFile + " file does not exists, learn and save settings first.");
+            }
+        }
+
+        private List<ITestBook> CheckNetwork(IEnumerable<TestBook> testData)
+        {
+            var network = new Network(networkSettingsFile);
+            var testSet = GetTestCases(testData);
+            var errors = network.Check(testSet);
+
+            return errors;
         }
 
         private List<ITestCase> GetTestCases(IEnumerable<TestBook> testBooks)

@@ -6,12 +6,12 @@ namespace Rb.BookClassifier.Binary.Book
 {
     internal class TestSetWriter
     {
-        public static void Write(List<TestBook> testBooks, string path)
+        public static void Write(List<TestBook> testBooks, string workSheet, string path)
         {
             var testSetFile = new FileInfo(path);
             using (var package = new ExcelPackage(testSetFile))
             {
-                var worksheet = package.Workbook.Worksheets["TestSetInfo"];
+                var worksheet = package.Workbook.Worksheets[workSheet];
                 worksheet.Cells[1, 1].Value = "Title";
                 worksheet.Cells[1, 2].Value = "Year";
                 worksheet.Cells[1, 3].Value = "Author";
