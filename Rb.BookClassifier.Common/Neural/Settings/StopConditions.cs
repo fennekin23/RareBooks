@@ -26,25 +26,27 @@ namespace Rb.BookClassifier.Common.Neural.Settings
 
         public bool IsStopConditionsReached(int epoch, double error, TimeSpan time)
         {
-            if (stopType == StopType.Epoch)
+            var result = false;
+
+            if (stopType.HasFlag(StopType.Epoch))
             {
                 var epochCountIsLessThanMax = MaxEpochCount > epoch;
-                return !epochCountIsLessThanMax;
+                result |= !epochCountIsLessThanMax;
             }
 
-            if (stopType == StopType.Error)
+            if (stopType.HasFlag(StopType.Error))
             {
                 var errorIsLessThanMax = MaxMainSquareError > error;
-                return errorIsLessThanMax;
+                result |= errorIsLessThanMax;
             }
 
-            if (stopType == StopType.Time)
+            if (stopType.HasFlag(StopType.Time))
             {
                 var timeIsLessThanMax = MaxTimeForLearning > time;
-                return !timeIsLessThanMax;
+                result |= !timeIsLessThanMax;
             }
 
-            return false;
+            return result;
         }
     }
 }

@@ -12,11 +12,11 @@ namespace Rb.BookClassifier.Binary
 
         private static void StartApplication()
         {
-            Console.WriteLine("Learn / Check / Save classified? [1/2/3]");
+            Console.WriteLine("Learn / Check / Save classified / Randon test? [1 / 2 / 3 / 4]");
 
             var classifier = new Classifier();
 
-            var allowedOprations = new[] { "1", "2", "3" };
+            var allowedOprations = new[] { "1", "2", "3", "4" };
             var operation = Console.ReadLine();
 
             if (!allowedOprations.Contains(operation))
@@ -41,6 +41,12 @@ namespace Rb.BookClassifier.Binary
             {
                 Console.WriteLine("Saving...");
                 classifier.SaveClassified();
+            }
+
+            if (operation == "4")
+            {
+                Console.WriteLine("Random test...");
+                classifier.RandomTest();
             }
         }
     }

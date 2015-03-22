@@ -30,7 +30,7 @@ namespace Rb.BookClassifier.Binary
             if (File.Exists(networkSettingsFile))
             {
                 var errors = CheckNetwork(testData);
-                PrintErrorStatistic(errors, testData.Count);
+                PrintErrorStatistic(errors.Count, testData.Count);
             }
             else
             {
@@ -40,8 +40,6 @@ namespace Rb.BookClassifier.Binary
 
         public void Learn()
         {
-            Console.WriteLine("Test set count: {0}", testData.Count);
-
             var trainSet = GetTrainSet(80);
             PrintTrainSetInfo(trainSet);
 
@@ -56,9 +54,47 @@ namespace Rb.BookClassifier.Binary
             var testSet = GetTestCases(testData.Where(i => !trainSet.Contains(i)));
 
             var errors = network.Check(testSet);
-            PrintErrorStatistic(errors, testSet.Count);
+            PrintErrorStatistic(errors.Count, testSet.Count);
 
             SaveNetworkSettings(network);
+        }
+
+        public void RandomTest()
+        {
+            var testResults = new List<Tuple<int, double>>();
+
+            var learningSettings = new LearningSettings(0.95, 0.6, 0.6);
+            var stopConditions = new StopConditions(
+                StopType.Error | StopType.Time, 
+                maxMainSquareError: 5e-5, 
+                maxTimeForLearning: TimeSpan.FromSeconds(15));
+
+            for (var i = 0; i < 20; i++)
+            {
+                Console.WriteLine("Start test: {0}", i + 1);
+
+                var trainSet = GetTrainSet(80);
+                var inputSize = vectorizer.GetVector(trainSet[0]).Length;
+
+                var network = new Network(learningSettings, inputSize, inputSize, 1);
+                network.Learn(GetTestCases(trainSet), stopConditions);
+                var testSet = GetTestCases(testData.Where(b => !trainSet.Contains(b)));
+                var errors = network.Check(testSet).Count;
+                var actualError = GetActualError(errors, testSet.Count);
+
+                testResults.Add(new Tuple<int, double>(errors, actualError));
+
+                Console.WriteLine("Finish test: {0}", i + 1);
+            }
+
+            Console.WriteLine("Results:");
+            foreach (var testResult in testResults)
+            {
+                Console.WriteLine("Errors count: {0}, error: {1}%", testResult.Item1, testResult.Item2);
+            }
+            Console.WriteLine("Min error: {0}%", testResults.Min(i => i.Item2));
+            Console.WriteLine("Max error: {0}%", testResults.Max(i => i.Item2));
+            Console.WriteLine("Avarage error: {0}%", testResults.Average(i => i.Item2));
         }
 
         public void SaveClassified()
@@ -75,13 +111,18 @@ namespace Rb.BookClassifier.Binary
             }
         }
 
-        private List<ITestBook> CheckNetwork(IEnumerable<TestBook> testData)
+        private List<ITestBook> CheckNetwork(IEnumerable<TestBook> testSetData)
         {
             var network = new Network(networkSettingsFile);
-            var testSet = GetTestCases(testData);
+            var testSet = GetTestCases(testSetData);
             var errors = network.Check(testSet);
 
             return errors;
+        }
+
+        private static double GetActualError(int errorsCount, int testSetCount)
+        {
+            return Math.Round((double) errorsCount / testSetCount * 100, 2);
         }
 
         private List<ITestCase> GetTestCases(IEnumerable<TestBook> testBooks)
@@ -107,12 +148,14 @@ namespace Rb.BookClassifier.Binary
             testData = TestSetReader.Read(testDataFile);
             ranges = new TestBookRanges(testData);
             vectorizer = new TestBookVectorizer(ranges);
+
+            Console.WriteLine("Test set count: {0}", testData.Count);
         }
 
-        private static void PrintErrorStatistic(List<ITestBook> errors, int testSetCount)
+        private static void PrintErrorStatistic(int errorsCount, int testSetCount)
         {
-            var errorsPercentage = Math.Round((double) errors.Count / testSetCount * 100, 2);
-            Console.WriteLine("Errors count: {0} - {1}%", errors.Count, errorsPercentage);
+            var errorsPercentage = GetActualError(errorsCount, testSetCount);
+            Console.WriteLine("Errors count: {0} - {1}%", errorsCount, errorsPercentage);
         }
 
         private static void PrintTrainSetInfo(List<TestBook> trainSet)

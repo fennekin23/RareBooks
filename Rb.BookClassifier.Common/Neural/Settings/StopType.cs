@@ -1,9 +1,12 @@
-﻿namespace Rb.BookClassifier.Common.Neural.Settings
+﻿using System;
+
+namespace Rb.BookClassifier.Common.Neural.Settings
 {
+    [Flags]
     public enum StopType
     {
-        Epoch,
-        Error,
-        Time
+        Epoch = 1,
+        Error = 2,
+        Time = 4
     }
 }
