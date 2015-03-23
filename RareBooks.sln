@@ -37,6 +37,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookClassifier", "BookClass
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.BookClassifier.Common", "Rb.BookClassifier.Common\Rb.BookClassifier.Common.csproj", "{7DDE1440-32F7-4BF8-A53C-D2790CCE71DB}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.BookClassifier.RequestType", "Rb.BookClassifier.RequestType\Rb.BookClassifier.RequestType.csproj", "{C5AA83FD-7A05-40F8-9D8D-ECC8EC188C4B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -99,6 +101,10 @@ Global
 		{7DDE1440-32F7-4BF8-A53C-D2790CCE71DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{7DDE1440-32F7-4BF8-A53C-D2790CCE71DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{7DDE1440-32F7-4BF8-A53C-D2790CCE71DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C5AA83FD-7A05-40F8-9D8D-ECC8EC188C4B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C5AA83FD-7A05-40F8-9D8D-ECC8EC188C4B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C5AA83FD-7A05-40F8-9D8D-ECC8EC188C4B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C5AA83FD-7A05-40F8-9D8D-ECC8EC188C4B}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -111,5 +117,6 @@ Global
 		{9D762914-06CC-4692-8246-9FFA50B1B7CD} = {D49ADD3D-38FD-4590-9520-D93F765DC3A6}
 		{1512CF41-1D15-4B0C-9188-45CC87457083} = {44229FD7-D6AA-4ED6-83F7-C5D92C8A5F24}
 		{7DDE1440-32F7-4BF8-A53C-D2790CCE71DB} = {44229FD7-D6AA-4ED6-83F7-C5D92C8A5F24}
+		{C5AA83FD-7A05-40F8-9D8D-ECC8EC188C4B} = {44229FD7-D6AA-4ED6-83F7-C5D92C8A5F24}
 	EndGlobalSection
 EndGlobal

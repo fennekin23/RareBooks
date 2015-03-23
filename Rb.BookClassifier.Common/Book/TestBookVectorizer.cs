@@ -6,16 +6,16 @@ using Rb.Common.Enums;
 
 namespace Rb.BookClassifier.Common.Book
 {
-    public abstract class TestBookVectorizerBase<TB, TR>
+    public abstract class TestBookVectorizer<TB, TR> : ITestBookVectorizer<TB> 
         where TB : ITestBook
         where TR : ITestBookRanges
     {
-        private readonly ITestBookRanges ranges;
-
-        protected TestBookVectorizerBase(TR ranges)
+        protected TestBookVectorizer(TR ranges)
         {
-            this.ranges = ranges;
+            Ranges = ranges;
         }
+
+        protected TR Ranges { get; private set; }
 
         public abstract double[] GetVector(TB testBook);
 
@@ -23,12 +23,12 @@ namespace Rb.BookClassifier.Common.Book
         {
             var result = new List<double>();
 
-            var title = GetNormalized(testBook.Title.Length, ranges.Title);
-            var author = GetNormalized(testBook.Author.Length, ranges.Author);
+            var title = GetNormalized(testBook.Title.Length, Ranges.Title);
+            var author = GetNormalized(testBook.Author.Length, Ranges.Author);
             var bbk = testBook.IsBbkExists ? 1 : -1;
-            var annotation = testBook.Annotation.Length != 0 ? 1 : -1;
+            //var annotation = testBook.Annotation.Length != 0 ? 1 : -1;
             var language = GetLanguageVector(testBook.Language);
-            var year = GetYearVector(testBook.Year, ranges.Year);
+            var year = GetYearVector(testBook.Year, Ranges.Year);
 
             result.Add(title);
             result.Add(author);

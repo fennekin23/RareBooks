@@ -53,12 +53,17 @@
   <ItemGroup>
     <Compile Include="Book\ITestBook.cs" />
     <Compile Include="Book\ITestBookRanges.cs" />
-    <Compile Include="Book\TestBookVectorizerBase.cs" />
+    <Compile Include="Book\ITestBookVectorizer.cs" />
+    <Compile Include="Book\TestBookRanges.cs" />
+    <Compile Include="Book\TestBookVectorizer.cs" />
+    <Compile Include="Classifier\ClassifierBase.cs" />
     <Compile Include="Neural\ITestCase.cs" />
+    <Compile Include="Neural\ITestCaseFactory.cs" />
     <Compile Include="Neural\Settings\LearningSettings.cs" />
     <Compile Include="Neural\Network.cs" />
     <Compile Include="Neural\Settings\StopConditions.cs" />
     <Compile Include="Neural\Settings\StopType.cs" />
+    <Compile Include="Neural\TestCase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +75,7 @@
       <Name>Rb.Common</Name>
     </ProjectReference>
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

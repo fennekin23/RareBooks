@@ -1,6 +1,6 @@
 ﻿using Rb.BookClassifier.Common.Book;
 
-namespace Rb.BookClassifier.Binary.Book
+namespace Rb.BookClassifier.RequestType.Book
 {
     internal class TestBookVectorizer : TestBookVectorizer<TestBook, TestBookRanges>
     {
@@ -12,10 +12,6 @@ namespace Rb.BookClassifier.Binary.Book
         public override double[] GetVector(TestBook testBook)
         {
             var result = GetBaseVector(testBook);
-
-            var yandexResults = GetNormalized(testBook.YandexResults, Ranges.YandexResults);
-
-            result.Add(yandexResults);
 
             return result.ToArray();
         }
