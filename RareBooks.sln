@@ -31,7 +31,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SearchProviders", "SearchPr
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.SnippetDictionary", "Rb.SnippetDictionary\Rb.SnippetDictionary.csproj", "{41966DFA-2C84-4A18-BD07-5B97EA907A71}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.BookClassifier.Binary", "Rb.BookClassifier\Rb.BookClassifier.Binary.csproj", "{1512CF41-1D15-4B0C-9188-45CC87457083}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.BookClassifier.Binary", "Rb.BookClassifier.Binary\Rb.BookClassifier.Binary.csproj", "{1512CF41-1D15-4B0C-9188-45CC87457083}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "BookClassifier", "BookClassifier", "{44229FD7-D6AA-4ED6-83F7-C5D92C8A5F24}"
 EndProject

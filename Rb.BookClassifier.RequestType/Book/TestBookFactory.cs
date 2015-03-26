@@ -17,7 +17,8 @@ namespace Rb.BookClassifier.RequestType.Book
                 {
                     cells[row, 10].GetValue<bool>(),
                     cells[row, 11].GetValue<bool>(),
-                    cells[row, 12].GetValue<bool>()
+                    cells[row, 12].GetValue<bool>(),
+                    cells[row, 13].GetValue<bool>()
                 },
                 Title = cells[row, 1].GetValue<string>(),
                 Year = cells[row, 2].GetValue<int>(),

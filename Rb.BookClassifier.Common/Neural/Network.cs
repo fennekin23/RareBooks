@@ -16,7 +16,7 @@ namespace Rb.BookClassifier.Common.Neural
 
         public Network(LearningSettings learningSettings, int inputSize, params int[] layers)
         {
-            Neuron.RandRange = new Range(-0.1f, 0.1f);
+            Neuron.RandRange = new Range(-0.05f, 0.05f);
             network = new ActivationNetwork(new SigmoidFunction(learningSettings.Alpha), inputSize, layers);
             teacher = new BackPropagationLearning(network)
             {

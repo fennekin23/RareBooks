@@ -37,7 +37,7 @@ namespace Rb.BookClassifier.RequestType
 
         protected override LearningSettings GetLearningSettings()
         {
-            return new LearningSettings(0.95, 0.6, 0.6);
+            return new LearningSettings(0.75, 0.4, 0.85);
         }
 
         protected override StopConditions GetStopConditions()
