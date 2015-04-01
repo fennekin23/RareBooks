@@ -4,7 +4,7 @@ namespace Rb.BookClassifier.Binary.Book
 {
     internal class TestBook : ITestBook
     {
-        public bool IsMoreInfoExist { get; set; }
+        public bool IsMoreInfoExists { get; set; }
 
         public long YandexResults { get; set; }
 

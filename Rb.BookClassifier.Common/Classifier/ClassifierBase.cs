@@ -2,27 +2,25 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using Rb.BookClassifier.Common.Book;
 using Rb.BookClassifier.Common.Neural;
 using Rb.BookClassifier.Common.Neural.Settings;
 
 namespace Rb.BookClassifier.Common.Classifier
 {
-    public abstract class ClassifierBase<TB>
-        where TB : ITestBook
+    public abstract class ClassifierBase<TEntity>
     {
         protected const string NetworkSettingsFile = "../networkSettings.txt";
         protected const string TestDataFile = "../../../rarebooks.xlsx";
 
         private Network network;
 
-        protected ITestCaseFactory<TB> TestCaseFactory { get; set; }
+        protected ITestCaseFactory<TEntity> TestCaseFactory { get; set; }
 
-        protected List<TB> TestData { get; set; }
+        protected List<TEntity> TestData { get; set; }
 
-        public List<ITestBook> Check()
+        public List<TEntity> Check()
         {
-            var errors = new List<ITestBook>();
+            var errors = new List<TEntity>();
 
             if (File.Exists(NetworkSettingsFile))
             {
@@ -105,12 +103,12 @@ namespace Rb.BookClassifier.Common.Classifier
 
         protected abstract StopConditions GetStopConditions();
 
-        protected abstract List<TB> GetTrainSet(int i);
+        protected abstract List<TEntity> GetTrainSet(int i);
 
-        private List<ITestBook> CheckNetwork(IEnumerable<TB> testSetData)
+        private List<TEntity> CheckNetwork(IEnumerable<TEntity> testData)
         {
             network = new Network(NetworkSettingsFile);
-            var testSet = GetTestCases(testSetData);
+            var testSet = GetTestCases(testData);
             var errors = network.Check(testSet);
 
             return errors;
@@ -121,7 +119,7 @@ namespace Rb.BookClassifier.Common.Classifier
             return Math.Round((double) errorsCount / testSetCount * 100, 2);
         }
 
-        private List<ITestCase> GetTestCases(IEnumerable<TB> testSetData)
+        private List<ITestCase<TEntity>> GetTestCases(IEnumerable<TEntity> testSetData)
         {
             return testSetData.Select(TestCaseFactory.Create).ToList();
         }

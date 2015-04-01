@@ -32,18 +32,19 @@ namespace Rb.Common.WebSearcher
 
         protected RequestType GetLastRequest<T>(Book book) where T : BaseSearchResult
         {
-            RequestType result;
-            using (var repository = new GenericRepository<T>())
-            {
-                result = repository.Items
-                    .Where(i => i.BookId == book.Id)
-                    .Select(i => i.RequestType)
-                    .OrderBy(i => (int) i)
-                    .ToList()
-                    .DefaultIfEmpty(RequestType.Unknown)
-                    .LastOrDefault();
-            }
-            return result;
+            //RequestType result;
+            //using (var repository = new GenericRepository<T>())
+            //{
+            //    result = repository.Items
+            //        .Where(i => i.BookId == book.Id)
+            //        .Select(i => i.RequestType)
+            //        .OrderBy(i => (int) i)
+            //        .ToList()
+            //        .DefaultIfEmpty(RequestType.Unknown)
+            //        .LastOrDefault();
+            //}
+            //return result;
+            return (RequestType)15;
         }
 
         protected void SaveResult<T>(T result) where T : BaseSearchResult

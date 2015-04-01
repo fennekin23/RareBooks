@@ -50,7 +50,7 @@ namespace Rb.BookClassifier.Binary.Book
                 Author = cells[row, 3].GetValue<string>(),
                 IsBbkExists = cells[row, 6].GetValue<bool>(),
                 InternalId = cells[row, 9].GetValue<int>(),
-                IsMoreInfoExist = cells[row, 8].GetValue<bool>(),
+                IsMoreInfoExists = cells[row, 8].GetValue<bool>(),
                 Language = cells[row, 5].GetValue<int>(),
                 Title = cells[row, 1].GetValue<string>(),
                 YandexResults = cells[row, 7].GetValue<long>(),
@@ -68,7 +68,7 @@ namespace Rb.BookClassifier.Binary.Book
                 Author = book.Author,
                 IsBbkExists = book.Bbk.Length != 0,
                 InternalId = book.InternalId,
-                IsMoreInfoExist = false,
+                IsMoreInfoExists = false,
                 Language = (int) book.LanguageCode,
                 Title = book.Title,
                 // ReSharper disable once PossibleNullReferenceException

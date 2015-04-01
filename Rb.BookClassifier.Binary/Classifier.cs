@@ -27,7 +27,7 @@ namespace Rb.BookClassifier.Binary
             if (File.Exists(NetworkSettingsFile))
             {
                 var errors = Check().Select(i => i.InternalId).ToArray();
-                var classified = TestData.Where(i => !errors.Contains(i.InternalId) && i.IsMoreInfoExist).ToList();
+                var classified = TestData.Where(i => !errors.Contains(i.InternalId) && i.IsMoreInfoExists).ToList();
                 TestSetWriter.Write(classified, "Classified", TestDataFile);
             }
             else
@@ -41,8 +41,8 @@ namespace Rb.BookClassifier.Binary
             var fillPercentage = percentage / 100.0;
             var trainSet = new List<TestBook>();
 
-            var positiv = TestData.Where(i => i.IsMoreInfoExist).ToList();
-            var negativ = TestData.Where(i => !i.IsMoreInfoExist).ToList();
+            var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
+            var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
             trainSet.AddRange(positiv.Shuffle().Take((int) (positiv.Count * fillPercentage)));
             trainSet.AddRange(negativ.Shuffle().Take((int) (negativ.Count * fillPercentage)));
 

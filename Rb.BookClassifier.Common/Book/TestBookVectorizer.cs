@@ -6,7 +6,7 @@ using Rb.Common.Enums;
 
 namespace Rb.BookClassifier.Common.Book
 {
-    public abstract class TestBookVectorizer<TB, TR> : ITestBookVectorizer<TB> 
+    public abstract class TestBookVectorizer<TB, TR> : IVectorizer<TB>
         where TB : ITestBook
         where TR : ITestBookRanges
     {
@@ -16,8 +16,6 @@ namespace Rb.BookClassifier.Common.Book
         }
 
         protected TR Ranges { get; private set; }
-
-        public abstract double[] GetVector(TB testBook);
 
         protected List<double> GetBaseVector(ITestBook testBook)
         {
@@ -40,7 +38,12 @@ namespace Rb.BookClassifier.Common.Book
             return result;
         }
 
-        protected double[] GetLanguageVector(int language)
+        protected double GetNormalized(double value, Range range)
+        {
+            return (value - range.Min) / (range.Size / 2.0) - 1;
+        }
+
+        private double[] GetLanguageVector(int language)
         {
             var maxLanguage = (int) Enum.GetValues(typeof (LanguageCode)).Cast<LanguageCode>().Max();
 
@@ -50,12 +53,7 @@ namespace Rb.BookClassifier.Common.Book
             return languageVector;
         }
 
-        protected double GetNormalized(double value, Range range)
-        {
-            return (value - range.Min) / (range.Size / 2.0) - 1;
-        }
-
-        protected double[] GetYearVector(int year, Range range)
+        private double[] GetYearVector(int year, Range range)
         {
             const int yearPeriod = 45;
             var minRoundedYear = range.Min.RoundOff(yearPeriod);
@@ -68,5 +66,7 @@ namespace Rb.BookClassifier.Common.Book
 
             return yearVector;
         }
+
+        public abstract double[] GetVector(TB testBook);
     }
 }

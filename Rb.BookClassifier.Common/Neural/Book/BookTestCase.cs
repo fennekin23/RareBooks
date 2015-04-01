@@ -2,12 +2,13 @@
 
 namespace Rb.BookClassifier.Common.Neural
 {
-    public class TestCase : ITestCase
+    public class BookTestCase<T> : ITestCase<T>
+        where T : ITestBook
     {
         public double[] Input { get; set; }
 
         public double[] Output { get; set; }
 
-        public ITestBook TestBook { get; set; }
+        public T TestEntity { get; set; }
     }
 }

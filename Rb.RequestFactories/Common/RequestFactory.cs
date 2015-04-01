@@ -58,7 +58,7 @@ namespace Rb.RequestFactories.Common
                     return string.Format("{0} {1} {2} {3} {4}", book.Title, book.Author, book.Publisher, settings.OrKey, book.PublishPlace);
 
                 case RequestType.NoLangExactTitleAuthor:
-                    return string.Format("\"{0} {1}\"", book.Title, book.Author).Trim();
+                    return string.Format("\"{0}\" {1}", book.Title, book.Author).Trim();
 
                 case RequestType.NoLangExactTitleAuthorAllInTitle:
                     return string.Format("{0}:\"{1} {2}\"", settings.TitleKey, book.Title, book.Author);

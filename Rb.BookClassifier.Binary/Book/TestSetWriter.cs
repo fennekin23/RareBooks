@@ -31,7 +31,7 @@ namespace Rb.BookClassifier.Binary.Book
                     worksheet.Cells[i + 2, 5].Value = testBooks[i].Language;
                     worksheet.Cells[i + 2, 6].Value = testBooks[i].IsBbkExists;
                     worksheet.Cells[i + 2, 7].Value = testBooks[i].YandexResults;
-                    worksheet.Cells[i + 2, 8].Value = testBooks[i].IsMoreInfoExist;
+                    worksheet.Cells[i + 2, 8].Value = testBooks[i].IsMoreInfoExists;
                     worksheet.Cells[i + 2, 9].Value = testBooks[i].InternalId;
                 }
 

@@ -4,7 +4,6 @@ using System.Diagnostics;
 using AForge;
 using AForge.Neuro;
 using AForge.Neuro.Learning;
-using Rb.BookClassifier.Common.Book;
 using Rb.BookClassifier.Common.Neural.Settings;
 
 namespace Rb.BookClassifier.Common.Neural
@@ -30,23 +29,23 @@ namespace Rb.BookClassifier.Common.Neural
             network = (ActivationNetwork) AForge.Neuro.Network.Load(path);
         }
 
-        public List<ITestBook> Check(List<ITestCase> testSet)
+        public List<T> Check<T>(List<ITestCase<T>> testSet)
         {
-            var errors = new List<ITestBook>();
+            var errors = new List<T>();
             foreach (var test in testSet)
             {
                 var networkResult = network.Compute(test.Input);
 
                 if (GetAverageOutputError(networkResult, test.Output) > 0.4)
                 {
-                    errors.Add(test.TestBook);
+                    errors.Add(test.TestEntity);
                 }
             }
 
             return errors;
         }
 
-        public Dictionary<int, double> Learn(List<ITestCase> trainSet, StopConditions stopConditions)
+        public Dictionary<int, double> Learn<T>(List<ITestCase<T>> trainSet, StopConditions stopConditions)
         {
             var learnHistory = new Dictionary<int, double>();
 

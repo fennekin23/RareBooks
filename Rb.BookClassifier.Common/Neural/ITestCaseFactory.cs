@@ -1,10 +1,7 @@
-﻿using Rb.BookClassifier.Common.Book;
-
-namespace Rb.BookClassifier.Common.Neural
+﻿namespace Rb.BookClassifier.Common.Neural
 {
-    public interface ITestCaseFactory<T>
-        where T : ITestBook
+    public interface ITestCaseFactory<TEntity>
     {
-        ITestCase Create(T book);
+        ITestCase<TEntity> Create(TEntity entity);
     }
 }

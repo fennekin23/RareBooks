@@ -2,24 +2,24 @@
 using System.IO;
 using OfficeOpenXml;
 
-namespace Rb.BookClassifier.RequestType.Book
+namespace Rb.BookClassifier.Snippet.Snippet
 {
     internal class TestSetReader
     {
-        public static List<TestBook> Read(string path)
+        public static List<TestSnippet> Read(string path)
         {
-            var testBooks = new List<TestBook>();
+            var testSnippets = new List<TestSnippet>();
             var testSetFile = new FileInfo(path);
             using (var package = new ExcelPackage(testSetFile))
             {
-                var worksheet = package.Workbook.Worksheets["RequestTypeClassifier"];
+                var worksheet = package.Workbook.Worksheets["SnippetClassifier"];
                 for (var i = 2; i <= worksheet.Dimension.Rows; i++)
                 {
-                    testBooks.Add(TestBookFactory.CreateNew(worksheet.Cells, i));
+                    testSnippets.Add(TestSnippetFactory.CreateNew(worksheet.Cells, i));
                 }
             }
 
-            return testBooks;
+            return testSnippets;
         }
     }
 }
