@@ -2,6 +2,7 @@
 using Rb.BookClassifier.Common;
 using Rb.BookClassifier.Common.Neural;
 using Rb.BookClassifier.RequestType.Book;
+using Rb.Common;
 
 namespace Rb.BookClassifier.RequestType.Neural
 {
@@ -19,7 +20,7 @@ namespace Rb.BookClassifier.RequestType.Neural
             var testCase = new BookTestCase<TestBook>
             {
                 Input = vectorizer.GetVector(book),
-                Output = book.RequestTypes.Select(i => i ? 1.0 : 0.0).ToArray(),
+                Output = book.RequestTypes.Select(i => i.ToDouble()).ToArray(),
                 TestEntity = book
             };
 

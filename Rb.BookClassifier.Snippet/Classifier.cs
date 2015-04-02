@@ -14,7 +14,8 @@ namespace Rb.BookClassifier.Snippet
         public Classifier()
         {
             TestData = TestSetReader.Read(TestDataFile);
-            var vectorizer = new TestSnippetVectorizer();
+            var ranges = new TestSnippetRanges(TestData);
+            var vectorizer = new TestSnippetVectorizer(ranges);
             TestCaseFactory = new TestCaseFactory(vectorizer);
 
             Console.WriteLine("Test set count: {0}", TestData.Count);
@@ -36,12 +37,12 @@ namespace Rb.BookClassifier.Snippet
 
         protected override LearningSettings GetLearningSettings()
         {
-            return new LearningSettings(0.75, 0.4, 0.85);
+            return new LearningSettings(0.95, 0.4, 0.8);
         }
 
         protected override StopConditions GetStopConditions()
         {
-            return new StopConditions(StopType.Error, maxMainSquareError: 1e-4);
+            return new StopConditions(StopType.Error | StopType.Time, maxMainSquareError: 1e-4, maxTimeForLearning: TimeSpan.FromSeconds(30));
         }
 
         protected override List<TestSnippet> GetTrainSet(int percentage)
@@ -51,8 +52,8 @@ namespace Rb.BookClassifier.Snippet
 
             var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
             var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
-            trainSet.AddRange(positiv.Shuffle().Take((int)(positiv.Count * fillPercentage)));
-            trainSet.AddRange(negativ.Shuffle().Take((int)(negativ.Count * fillPercentage)));
+            trainSet.AddRange(positiv.Shuffle().Take((int) (positiv.Count * fillPercentage)));
+            trainSet.AddRange(negativ.Shuffle().Take((int) (negativ.Count * fillPercentage)));
 
             return trainSet;
         }

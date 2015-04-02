@@ -53,7 +53,7 @@
   <ItemGroup>
     <Compile Include="Book\ITestBook.cs" />
     <Compile Include="Book\ITestBookRanges.cs" />
-    <Compile Include="Book\TestBookRanges.cs" />
+    <Compile Include="Book\TestBookRangesBase.cs" />
     <Compile Include="Book\TestBookVectorizer.cs" />
     <Compile Include="Classifier\ClassifierBase.cs" />
     <Compile Include="IVectorizer.cs" />
@@ -67,6 +67,8 @@
     <Compile Include="Neural\Snippet\SnippetTestCase.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Snippet\ITestSnippet.cs" />
+    <Compile Include="Snippet\ITestSnippetRanges.cs" />
+    <Compile Include="Snippet\TestSnippetRangesBase.cs" />
     <Compile Include="Snippet\TestSnippetVectorizer.cs" />
   </ItemGroup>
   <ItemGroup>

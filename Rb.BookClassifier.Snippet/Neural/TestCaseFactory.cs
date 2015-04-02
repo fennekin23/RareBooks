@@ -2,6 +2,7 @@
 using Rb.BookClassifier.Common.Neural;
 using Rb.BookClassifier.Common.Neural.Snippet;
 using Rb.BookClassifier.Snippet.Snippet;
+using Rb.Common;
 
 namespace Rb.BookClassifier.Snippet.Neural
 {
@@ -19,7 +20,7 @@ namespace Rb.BookClassifier.Snippet.Neural
             var testCase = new SnippetTestCase<TestSnippet>
             {
                 Input = vectorizer.GetVector(entity),
-                Output = new[] { entity.IsMoreInfoExists ? 1.0 : 0.0 },
+                Output = new[] { entity.IsMoreInfoExists.ToDouble() },
                 TestEntity = entity
             };
 

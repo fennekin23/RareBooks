@@ -51,6 +51,7 @@
     <Compile Include="Snippet\TestSetReader.cs" />
     <Compile Include="Snippet\TestSnippet.cs" />
     <Compile Include="Snippet\TestSnippetFactory.cs" />
+    <Compile Include="Snippet\TestSnippetRanges.cs" />
     <Compile Include="Snippet\TestSnippetVectorizer.cs" />
   </ItemGroup>
   <ItemGroup>
