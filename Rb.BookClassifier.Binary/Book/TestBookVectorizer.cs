@@ -9,11 +9,11 @@ namespace Rb.BookClassifier.Binary.Book
         {
         }
 
-        public override double[] GetVector(TestBook entity)
+        public override double[] GetVector(TestBook snippet)
         {
-            var result = GetBaseVector(entity);
+            var result = GetBaseVector(snippet);
 
-            var yandexResults = GetNormalized(entity.YandexResults, Ranges.YandexResults);
+            var yandexResults = GetNormalized(snippet.YandexResults, Ranges.YandexResults);
 
             result.Add(yandexResults);
 

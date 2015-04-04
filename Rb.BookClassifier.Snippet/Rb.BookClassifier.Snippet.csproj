@@ -32,10 +32,17 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="EPPlus">
       <HintPath>..\packages\EPPlus.4.0.3\lib\net20\EPPlus.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -45,15 +52,15 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classifier.cs" />
-    <Compile Include="Levinstein.cs" />
     <Compile Include="Neural\TestCaseFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Snippet\Snippet.cs" />
     <Compile Include="Snippet\TestSetReader.cs" />
-    <Compile Include="Snippet\TestSnippet.cs" />
+    <Compile Include="Snippet\SnippetData.cs" />
     <Compile Include="Snippet\TestSnippetFactory.cs" />
-    <Compile Include="Snippet\TestSnippetRanges.cs" />
-    <Compile Include="Snippet\TestSnippetVectorizer.cs" />
+    <Compile Include="Snippet\SnippetRanges.cs" />
+    <Compile Include="Snippet\SnippetVectorizer.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -67,6 +74,10 @@
     <ProjectReference Include="..\Rb.Common\Rb.Common.csproj">
       <Project>{100059e8-ccc0-4a2f-9092-3de9aa9cacb3}</Project>
       <Name>Rb.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Rb.Data\Rb.Data.csproj">
+      <Project>{14d4b5d8-67bb-4409-8771-cc6cbe6a6827}</Project>
+      <Name>Rb.Data</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

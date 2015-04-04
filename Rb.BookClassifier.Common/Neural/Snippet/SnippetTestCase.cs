@@ -3,7 +3,7 @@
 namespace Rb.BookClassifier.Common.Neural.Snippet
 {
     public class SnippetTestCase<T> : ITestCase<T>
-        where T : ITestSnippet
+        where T : ISnippet
     {
         public double[] Input { get; set; }
 

@@ -2,7 +2,7 @@
 
 namespace Rb.BookClassifier.Common.Snippet
 {
-    public interface ITestSnippetRanges
+    public interface ISnippetRanges
     {
         Range Text { get; }
 

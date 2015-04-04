@@ -1,14 +1,12 @@
-﻿namespace Rb.BookClassifier.Snippet
+﻿namespace Rb.BookClassifier.Common.Snippet
 {
     internal class Levinstein
     {
         public static int ComputeDistance(string source, string target)
         {
             var n = source.Length;
-
             var m = target.Length;
-
-            var d = new int[n + 1, m + 1]; // matrix
+            var d = new int[n + 1, m + 1];
 
             if (n == 0)
             {

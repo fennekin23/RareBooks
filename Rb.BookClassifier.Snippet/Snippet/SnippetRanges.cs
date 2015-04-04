@@ -3,9 +3,9 @@ using Rb.BookClassifier.Common.Snippet;
 
 namespace Rb.BookClassifier.Snippet.Snippet
 {
-    internal class TestSnippetRanges : TestSnippetRangesBase<TestSnippet>
+    internal class SnippetRanges : SnippetRangesBase<Snippet>
     {
-        public TestSnippetRanges(List<TestSnippet> testSnippets)
+        public SnippetRanges(List<Snippet> testSnippets)
             : base(testSnippets)
         {
         }

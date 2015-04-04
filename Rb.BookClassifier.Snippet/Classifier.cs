@@ -4,18 +4,18 @@ using System.Linq;
 using Rb.BookClassifier.Common.Classifier;
 using Rb.BookClassifier.Common.Neural.Settings;
 using Rb.BookClassifier.Snippet.Neural;
-using Rb.BookClassifier.Snippet.Snippet;
 using Rb.Common;
+using Rb.BookClassifier.Snippet.Snippet;
 
 namespace Rb.BookClassifier.Snippet
 {
-    internal class Classifier : ClassifierBase<TestSnippet>
+    internal class Classifier : ClassifierBase<Snippet.Snippet>
     {
         public Classifier()
         {
             TestData = TestSetReader.Read(TestDataFile);
-            var ranges = new TestSnippetRanges(TestData);
-            var vectorizer = new TestSnippetVectorizer(ranges);
+            var ranges = new SnippetRanges(TestData);
+            var vectorizer = new SnippetVectorizer(ranges);
             TestCaseFactory = new TestCaseFactory(vectorizer);
 
             Console.WriteLine("Test set count: {0}", TestData.Count);
@@ -45,10 +45,10 @@ namespace Rb.BookClassifier.Snippet
             return new StopConditions(StopType.Error | StopType.Time, maxMainSquareError: 1e-4, maxTimeForLearning: TimeSpan.FromSeconds(30));
         }
 
-        protected override List<TestSnippet> GetTrainSet(int percentage)
+        protected override List<Snippet.Snippet> GetTrainSet(int percentage)
         {
             var fillPercentage = percentage / 100.0;
-            var trainSet = new List<TestSnippet>();
+            var trainSet = new List<Snippet.Snippet>();
 
             var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
             var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();

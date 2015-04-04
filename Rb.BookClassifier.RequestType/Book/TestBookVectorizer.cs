@@ -9,9 +9,9 @@ namespace Rb.BookClassifier.RequestType.Book
         {
         }
 
-        public override double[] GetVector(TestBook entity)
+        public override double[] GetVector(TestBook snippet)
         {
-            var result = GetBaseVector(entity);
+            var result = GetBaseVector(snippet);
 
             return result.ToArray();
         }

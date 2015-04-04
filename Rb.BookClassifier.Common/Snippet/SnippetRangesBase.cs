@@ -3,10 +3,10 @@ using Rb.Common;
 
 namespace Rb.BookClassifier.Common.Snippet
 {
-    public class TestSnippetRangesBase<T> : ITestSnippetRanges
-        where T : ITestSnippet
+    public class SnippetRangesBase<T> : ISnippetRanges
+        where T : ISnippet
     {
-        public TestSnippetRangesBase(List<T> testSnippets)
+        public SnippetRangesBase(List<T> testSnippets)
         {
             TestSnippets = testSnippets;
 

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace Rb.BookClassifier.Snippet
@@ -7,6 +8,8 @@ namespace Rb.BookClassifier.Snippet
     {
         private static void Main()
         {
+            AppDomain.CurrentDomain.UnhandledException +=
+                (sender, args) => File.WriteAllText("error.txt", args.ExceptionObject.ToString());
             StartApplication();
         }
 
