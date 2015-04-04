@@ -67,6 +67,6 @@ namespace Rb.BookClassifier.Common.Book
             return yearVector;
         }
 
-        public abstract double[] GetVector(TB testBook);
+        public abstract double[] GetVector(TB entity);
     }
 }

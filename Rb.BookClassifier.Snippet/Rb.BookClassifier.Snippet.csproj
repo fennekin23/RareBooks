@@ -45,6 +45,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Classifier.cs" />
+    <Compile Include="Levinstein.cs" />
     <Compile Include="Neural\TestCaseFactory.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
