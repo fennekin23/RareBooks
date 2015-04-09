@@ -22,14 +22,14 @@ namespace Rb.BookClassifier.Common.Book
             var result = new List<double>();
 
             var title = GetNormalized(testBook.Title.Length, Ranges.Title);
-            var author = GetNormalized(testBook.Author.Length, Ranges.Author);
+            //var author = GetNormalized(testBook.Author.Length, Ranges.Author);
             var bbk = testBook.IsBbkExists ? 1 : -1;
             //var annotation = testBook.Annotation.Length != 0 ? 1 : -1;
             var language = GetLanguageVector(testBook.Language);
             var year = GetYearVector(testBook.Year, Ranges.Year);
 
             result.Add(title);
-            result.Add(author);
+            //result.Add(author);
             result.Add(bbk);
             //result.Add(annotation);
             result.AddRange(language);
@@ -43,7 +43,7 @@ namespace Rb.BookClassifier.Common.Book
             return (value - range.Min) / (range.Size / 2.0) - 1;
         }
 
-        private double[] GetLanguageVector(int language)
+        private static IEnumerable<double> GetLanguageVector(int language)
         {
             var maxLanguage = (int) Enum.GetValues(typeof (LanguageCode)).Cast<LanguageCode>().Max();
 
@@ -53,9 +53,9 @@ namespace Rb.BookClassifier.Common.Book
             return languageVector;
         }
 
-        private double[] GetYearVector(int year, Range range)
+        private static IEnumerable<double> GetYearVector(int year, Range range)
         {
-            const int yearPeriod = 45;
+            const int yearPeriod = 40;
             var minRoundedYear = range.Min.RoundOff(yearPeriod);
             var maxRoundedYear = range.Max.RoundOff(yearPeriod);
             var numberOfBits = ((maxRoundedYear - minRoundedYear) / yearPeriod) + 1;

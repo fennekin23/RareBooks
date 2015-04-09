@@ -7,6 +7,7 @@ namespace Rb.BookClassifier.Common.Neural.Settings
     {
         Epoch = 1,
         Error = 2,
-        Time = 4
+        Time = 4,
+        Any = Epoch | Error | Time
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.IO;
 using System.Linq;
 
 namespace Rb.BookClassifier.Binary
@@ -7,11 +8,14 @@ namespace Rb.BookClassifier.Binary
     {
         private static void Main()
         {
+            AppDomain.CurrentDomain.UnhandledException +=
+                (sender, args) => File.WriteAllText("error.txt", args.ExceptionObject.ToString());
             StartApplication();
         }
 
         private static void StartApplication()
         {
+            Console.Clear();
             Console.WriteLine("Learn / Check / Save classified / Randon test? [1 / 2 / 3 / 4]");
 
             var classifier = new Classifier();
@@ -21,7 +25,6 @@ namespace Rb.BookClassifier.Binary
 
             if (!allowedOprations.Contains(operation))
             {
-                Console.Clear();
                 StartApplication();
             }
 
@@ -47,6 +50,11 @@ namespace Rb.BookClassifier.Binary
             {
                 Console.WriteLine("Random test...");
                 classifier.RandomTest();
+            }
+
+            if (Console.ReadLine() != "x")
+            {
+                StartApplication();
             }
         }
     }

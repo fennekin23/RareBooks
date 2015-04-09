@@ -42,7 +42,12 @@ namespace Rb.BookClassifier.RequestType
 
         protected override StopConditions GetStopConditions()
         {
-            return new StopConditions(StopType.Error, maxMainSquareError: 1e-4);
+            return new StopConditions(
+                StopType.Any,
+                maxEpochCount: 50000,
+                maxMainSquareError: 1e-4,
+                maxTimeForLearning: TimeSpan.FromSeconds(30));
+            //return new StopConditions(StopType.Error, maxMainSquareError: 1e-4);
         }
 
         protected override List<TestBook> GetTrainSet(int percentage)

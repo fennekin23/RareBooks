@@ -15,6 +15,7 @@ namespace Rb.BookClassifier.Snippet
 
         private static void StartApplication()
         {
+            Console.Clear();
             Console.WriteLine("Learn / Check / Save classified / Randon test? [1 / 2 / 3 / 4]");
 
             var classifier = new Classifier();
@@ -24,7 +25,6 @@ namespace Rb.BookClassifier.Snippet
 
             if (!allowedOprations.Contains(operation))
             {
-                Console.Clear();
                 StartApplication();
             }
 
@@ -50,6 +50,11 @@ namespace Rb.BookClassifier.Snippet
             {
                 Console.WriteLine("Random test...");
                 classifier.RandomTest();
+            }
+
+            if (Console.ReadLine() != "x")
+            {
+                StartApplication();
             }
         }
     }

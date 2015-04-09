@@ -1,20 +1,21 @@
 ﻿using System;
-using System.Collections.Generic;
+using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Rb.BookClassifier.RequestType
 {
-    class Program
+    internal class Program
     {
         private static void Main()
         {
+            AppDomain.CurrentDomain.UnhandledException +=
+                (sender, args) => File.WriteAllText("error.txt", args.ExceptionObject.ToString());
             StartApplication();
         }
 
         private static void StartApplication()
         {
+            Console.Clear();
             Console.WriteLine("Learn / Check / Save classified / Randon test? [1 / 2 / 3 / 4]");
 
             var classifier = new Classifier();
@@ -24,7 +25,6 @@ namespace Rb.BookClassifier.RequestType
 
             if (!allowedOprations.Contains(operation))
             {
-                Console.Clear();
                 StartApplication();
             }
 
@@ -50,6 +50,11 @@ namespace Rb.BookClassifier.RequestType
             {
                 Console.WriteLine("Random test...");
                 classifier.RandomTest();
+            }
+
+            if (Console.ReadLine() != "x")
+            {
+                StartApplication();
             }
         }
     }

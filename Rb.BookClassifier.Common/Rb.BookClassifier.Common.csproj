@@ -59,8 +59,10 @@
     <Compile Include="IVectorizer.cs" />
     <Compile Include="Neural\ITestCase.cs" />
     <Compile Include="Neural\ITestCaseFactory.cs" />
+    <Compile Include="Neural\LearningResult.cs" />
     <Compile Include="Neural\Settings\LearningSettings.cs" />
     <Compile Include="Neural\Network.cs" />
+    <Compile Include="Neural\Settings\NetworkSize.cs" />
     <Compile Include="Neural\Settings\StopConditions.cs" />
     <Compile Include="Neural\Settings\StopType.cs" />
     <Compile Include="Neural\Book\BookTestCase.cs" />

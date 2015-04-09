@@ -43,20 +43,26 @@ namespace Rb.BookClassifier.Binary
 
             var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
             var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
-            trainSet.AddRange(positiv.Shuffle().Take((int) (positiv.Count * fillPercentage)));
-            trainSet.AddRange(negativ.Shuffle().Take((int) (negativ.Count * fillPercentage)));
+            trainSet.AddRange(positiv.Shuffle().Take((int)(positiv.Count * fillPercentage)));
+            trainSet.AddRange(negativ.Shuffle().Take((int)(negativ.Count * fillPercentage)));
+            //trainSet.AddRange(positiv.Take((int)(positiv.Count * fillPercentage)));
+            //trainSet.AddRange(negativ.Take((int)(negativ.Count * fillPercentage)));
 
             return trainSet;
         }
 
         protected override LearningSettings GetLearningSettings()
         {
-            return new LearningSettings(0.95, 0.6, 0.6);
+            return new LearningSettings(0.95, 0.6, 0.65);
         }
 
         protected override StopConditions GetStopConditions()
         {
-            return new StopConditions(StopType.Error, maxMainSquareError: 1e-4);
+            return new StopConditions(
+                StopType.Any, 
+                maxEpochCount: 50000, 
+                maxMainSquareError: 1e-4,
+                maxTimeForLearning: TimeSpan.FromSeconds(15));
         }
     }
 }

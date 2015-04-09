@@ -15,7 +15,7 @@ namespace Rb.BookClassifier.Binary.Book
 
             var yandexResults = GetNormalized(snippet.YandexResults, Ranges.YandexResults);
 
-            result.Add(yandexResults);
+            //result.Add(yandexResults);
 
             return result.ToArray();
         }

@@ -66,12 +66,19 @@ namespace Rb.BookClassifier.Common.Neural
             while (!isStopConditionsReached)
             {
                 var errorPerOutPut = teacher.RunEpoch(input, output) * 2.0 / trainSet.Count;
-                learnHistory.Add(epochCount++, errorPerOutPut);
+                epochCount++;
 
-                if (epochCount % 1000 == 0)
+                if (epochCount % 10 == 0)
                 {
-                    isStopConditionsReached = stopConditions.IsStopConditionsReached(epochCount, errorPerOutPut, stopWatch.Elapsed);
-                    Console.WriteLine("Epoch: {0}, Error: {1}", epochCount, errorPerOutPut);
+                    learnHistory.Add(epochCount, errorPerOutPut);
+                }
+
+                if (epochCount % 2000 == 0)
+                {
+                    isStopConditionsReached = stopConditions.IsStopConditionsReached(epochCount,
+                        errorPerOutPut,
+                        stopWatch.Elapsed);
+                    //Console.WriteLine("Epoch: {0}, Error: {1}", epochCount, errorPerOutPut);
                 }
             }
             stopWatch.Stop();
