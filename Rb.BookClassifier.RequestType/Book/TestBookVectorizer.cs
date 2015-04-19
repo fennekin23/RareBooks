@@ -12,7 +12,6 @@ namespace Rb.BookClassifier.RequestType.Book
         public override double[] GetVector(TestBook snippet)
         {
             var result = GetBaseVector(snippet);
-
             return result.ToArray();
         }
     }

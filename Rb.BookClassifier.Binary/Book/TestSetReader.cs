@@ -1,25 +1,12 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using OfficeOpenXml;
+﻿using Rb.BookClassifier.Common.Reader;
 
 namespace Rb.BookClassifier.Binary.Book
 {
-    internal class TestSetReader
+    internal class TestSetReader : TestSetReader<TestBook>
     {
-        public static List<TestBook> Read(string path)
+        public TestSetReader()
+            : base(new TestBookFactory())
         {
-            var testBookSet = new List<TestBook>();
-            var testSetFile = new FileInfo(path);
-            using (var package = new ExcelPackage(testSetFile))
-            {
-                var worksheet = package.Workbook.Worksheets["TestSetInfo"];
-                for (var i = 2; i <= worksheet.Dimension.Rows; i++)
-                {
-                    testBookSet.Add(TestBookFactory.CreateNew(worksheet.Cells, i));
-                }
-            }
-
-            return testBookSet;
         }
     }
 }

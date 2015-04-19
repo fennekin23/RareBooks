@@ -15,26 +15,13 @@ namespace Rb.BookClassifier.Snippet
 
         public Classifier()
         {
-            TestData = TestSetReader.Read(TestDataFile);
+            var reader = new TestSetReader();
+            TestData = reader.Read(TestDataFile, "SnippetClassifier");
             var ranges = new SnippetRanges(TestData);
             var vectorizer = new SnippetVectorizer(ranges);
             TestCaseFactory = new TestCaseFactory(vectorizer);
 
             Console.WriteLine("Test set count: {0}", TestData.Count);
-        }
-
-        public void SaveClassified()
-        {
-            //if (File.Exists(networkSettingsFile))
-            //{
-            //    var errors = CheckNetwork(testData).Select(i => i.InternalId).ToArray();
-            //    var classified = testData.Where(i => !errors.Contains(i.InternalId) && i.IsMoreInfoExist).ToList();
-            //    TestSetWriter.Write(classified, "Classified", testDataFile);
-            //}
-            //else
-            //{
-            //    Console.WriteLine(networkSettingsFile + " file does not exists, learn and save settings first.");
-            //}
         }
 
         protected override LearningSettings GetLearningSettings()

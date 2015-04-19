@@ -1,30 +1,34 @@
 ﻿using OfficeOpenXml;
+using Rb.BookClassifier.Common.Reader;
 
 namespace Rb.BookClassifier.RequestType.Book
 {
-    internal class TestBookFactory
+    internal class TestBookFactory : TestSetFactory, ITestSetFactory<TestBook>
     {
-        public static TestBook CreateNew(ExcelRange cells, int row)
+        public TestBook Create(ExcelWorksheet worksheet, int row)
         {
-            var testBook = new TestBook
+            var address = new ExcelAddress(worksheet.Cells[row, 1].FullAddress);
+            var testSetItem = GetTestSetItem(worksheet.Workbook, address.Start.Row);
+
+            var requestTypes = new[]
             {
-                Annotation = cells[row, 4].GetValue<string>(),
-                Author = cells[row, 3].GetValue<string>(),
-                IsBbkExists = cells[row, 6].GetValue<bool>(),
-                InternalId = cells[row, 9].GetValue<int>(),
-                Language = cells[row, 5].GetValue<int>(),
-                RequestTypes = new[]
-                {
-                    cells[row, 10].GetValue<bool>(),
-                    cells[row, 11].GetValue<bool>(),
-                    cells[row, 12].GetValue<bool>(),
-                    cells[row, 13].GetValue<bool>()
-                },
-                Title = cells[row, 1].GetValue<string>(),
-                Year = cells[row, 2].GetValue<int>(),
+                worksheet.Cells[row, 2].GetValue<bool>(),
+                worksheet.Cells[row, 3].GetValue<bool>(),
+                worksheet.Cells[row, 4].GetValue<bool>(),
+                worksheet.Cells[row, 5].GetValue<bool>()
             };
 
-            return testBook;
+            return new TestBook
+            {
+                Annotation = testSetItem.Annotation,
+                Author = testSetItem.Author,
+                InternalId = testSetItem.InternalId,
+                IsBbkExists = testSetItem.IsBbkExists,
+                Language = testSetItem.Language,
+                RequestTypes = requestTypes,
+                Title = testSetItem.Title,
+                Year = testSetItem.Year
+            };
         }
     }
 }

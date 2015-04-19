@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using OfficeOpenXml;
+using Rb.BookClassifier.Common.Reader;
 using Rb.BookClassifier.Common.Snippet;
 using Rb.Common.Enums;
 using Rb.Data;
@@ -8,7 +9,7 @@ using Rb.Data.Entities;
 
 namespace Rb.BookClassifier.Snippet.Snippet
 {
-    internal class TestSnippetFactory
+    internal class TestSnippetFactory : ITestSetFactory<Snippet>
     {
         private static readonly Dictionary<RequestType, int> requestTypeToColumnMap = new Dictionary<RequestType, int>
         {
@@ -80,6 +81,18 @@ namespace Rb.BookClassifier.Snippet.Snippet
             };
 
             return snippetData;
+        }
+
+        public Snippet Create(ExcelWorksheet worksheet, int row)
+        {
+            const RequestType requestType = RequestType.NoLangExactTitle;
+            var internalBookId = worksheet.Cells[row, 1].GetValue<int>();
+            var isMoreInfoExistsColumn = requestTypeToColumnMap[requestType];
+            var isMoreInfoExists = worksheet.Cells[row, isMoreInfoExistsColumn].GetValue<bool>();
+
+            var snippet = GetSnippet(internalBookId, requestType, isMoreInfoExists);
+
+            return snippet;
         }
     }
 }

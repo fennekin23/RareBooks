@@ -12,11 +12,6 @@ namespace Rb.BookClassifier.Binary.Book
         public override double[] GetVector(TestBook snippet)
         {
             var result = GetBaseVector(snippet);
-
-            var yandexResults = GetNormalized(snippet.YandexResults, Ranges.YandexResults);
-
-            //result.Add(yandexResults);
-
             return result.ToArray();
         }
     }

@@ -1,11 +1,7 @@
-﻿using Rb.BookClassifier.Common.Book;
-
-namespace Rb.BookClassifier.Binary.Book
+﻿namespace Rb.BookClassifier.Common.TestSet
 {
-    internal class TestBook : ITestBook
+    public class TestSetItem : ITestSetItem
     {
-        public bool IsMoreInfoExists { get; set; }
-
         public string Annotation { get; set; }
 
         public string Author { get; set; }

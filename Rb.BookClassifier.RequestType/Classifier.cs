@@ -15,26 +15,13 @@ namespace Rb.BookClassifier.RequestType
 
         public Classifier()
         {
-            TestData = TestSetReader.Read(TestDataFile);
+            var reader = new TestSetReader();
+            TestData = reader.Read(TestDataFile, "RequestTypeClassifier");
             var ranges = new TestBookRanges(TestData);
             var vectorizer = new TestBookVectorizer(ranges);
             TestCaseFactory = new TestCaseFactory(vectorizer);
 
             Console.WriteLine("Test set count: {0}", TestData.Count);
-        }
-
-        public void SaveClassified()
-        {
-            //if (File.Exists(networkSettingsFile))
-            //{
-            //    var errors = CheckNetwork(testData).Select(i => i.InternalId).ToArray();
-            //    var classified = testData.Where(i => !errors.Contains(i.InternalId) && i.IsMoreInfoExist).ToList();
-            //    TestSetWriter.Write(classified, "Classified", testDataFile);
-            //}
-            //else
-            //{
-            //    Console.WriteLine(networkSettingsFile + " file does not exists, learn and save settings first.");
-            //}
         }
 
         protected override LearningSettings GetLearningSettings()
@@ -46,9 +33,9 @@ namespace Rb.BookClassifier.RequestType
         {
             return new StopConditions(
                 StopType.Any,
-                maxEpochCount: 50000,
-                maxMainSquareError: 1e-4,
-                maxTimeForLearning: TimeSpan.FromSeconds(30));
+                50000,
+                1e-4,
+                TimeSpan.FromSeconds(30));
             //return new StopConditions(StopType.Error, maxMainSquareError: 1e-4);
         }
 
@@ -57,7 +44,7 @@ namespace Rb.BookClassifier.RequestType
             lock (lockObject)
             {
                 var fillPercentage = percentage / 100.0;
-                var takeCount = (int)(TestData.Count * fillPercentage);
+                var takeCount = (int) (TestData.Count * fillPercentage);
                 var trainSet = TestData.Shuffle().Take(takeCount).ToList();
                 return trainSet;
             }

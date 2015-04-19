@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using Rb.BookClassifier.Binary.Book;
 using Rb.BookClassifier.Binary.Neural;
@@ -16,7 +15,8 @@ namespace Rb.BookClassifier.Binary
 
         public Classifier()
         {
-            TestData = TestSetReader.Read(TestDataFile);
+            var reader = new TestSetReader();
+            TestData = reader.Read(TestDataFile, "BinaryClassifier");
             var ranges = new TestBookRanges(TestData);
             var vectorizer = new TestBookVectorizer(ranges);
             TestCaseFactory = new TestCaseFactory(vectorizer);
@@ -24,18 +24,18 @@ namespace Rb.BookClassifier.Binary
             Console.WriteLine("Test set count: {0}", TestData.Count);
         }
 
-        public void SaveClassified()
+        protected override LearningSettings GetLearningSettings()
         {
-            if (File.Exists(NetworkSettingsFile))
-            {
-                var errors = Check().Select(i => i.InternalId).ToArray();
-                var classified = TestData.Where(i => !errors.Contains(i.InternalId) && i.IsMoreInfoExists).ToList();
-                TestSetWriter.Write(classified, "Classified", TestDataFile);
-            }
-            else
-            {
-                Console.WriteLine(NetworkSettingsFile + " file does not exists, learn and save settings first.");
-            }
+            return new LearningSettings(0.95, 0.6, 0.65);
+        }
+
+        protected override StopConditions GetStopConditions()
+        {
+            return new StopConditions(
+                StopType.Any,
+                50000,
+                1e-4,
+                TimeSpan.FromSeconds(15));
         }
 
         protected override List<TestBook> GetTrainSet(int percentage)
@@ -47,27 +47,11 @@ namespace Rb.BookClassifier.Binary
 
                 var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
                 var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
-                trainSet.AddRange(positiv.Shuffle().Take((int)(positiv.Count * fillPercentage)));
-                trainSet.AddRange(negativ.Shuffle().Take((int)(negativ.Count * fillPercentage)));
-                //trainSet.AddRange(positiv.Take((int)(positiv.Count * fillPercentage)));
-                //trainSet.AddRange(negativ.Take((int)(negativ.Count * fillPercentage)));
+                trainSet.AddRange(positiv.Shuffle().Take((int) (positiv.Count * fillPercentage)));
+                trainSet.AddRange(negativ.Shuffle().Take((int) (negativ.Count * fillPercentage)));
 
                 return trainSet;
             }
-        }
-
-        protected override LearningSettings GetLearningSettings()
-        {
-            return new LearningSettings(0.95, 0.6, 0.65);
-        }
-
-        protected override StopConditions GetStopConditions()
-        {
-            return new StopConditions(
-                StopType.Any, 
-                maxEpochCount: 50000, 
-                maxMainSquareError: 1e-4,
-                maxTimeForLearning: TimeSpan.FromSeconds(15));
         }
     }
 }
