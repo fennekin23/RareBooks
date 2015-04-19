@@ -11,6 +11,8 @@ namespace Rb.BookClassifier.Snippet
 {
     internal class Classifier : ClassifierBase<Snippet.Snippet>
     {
+        private readonly object lockObject = new object();
+
         public Classifier()
         {
             TestData = TestSetReader.Read(TestDataFile);
@@ -51,15 +53,18 @@ namespace Rb.BookClassifier.Snippet
 
         protected override List<Snippet.Snippet> GetTrainSet(int percentage)
         {
-            var fillPercentage = percentage / 100.0;
-            var trainSet = new List<Snippet.Snippet>();
+            lock (lockObject)
+            {
+                var fillPercentage = percentage / 100.0;
+                var trainSet = new List<Snippet.Snippet>();
 
-            var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
-            var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
-            trainSet.AddRange(positiv.Shuffle().Take((int) (positiv.Count * fillPercentage)));
-            trainSet.AddRange(negativ.Shuffle().Take((int) (negativ.Count * fillPercentage)));
+                var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
+                var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
+                trainSet.AddRange(positiv.Shuffle().Take((int)(positiv.Count * fillPercentage)));
+                trainSet.AddRange(negativ.Shuffle().Take((int)(negativ.Count * fillPercentage)));
 
-            return trainSet;
+                return trainSet;
+            }
         }
     }
 }

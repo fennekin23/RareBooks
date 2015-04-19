@@ -12,6 +12,8 @@ namespace Rb.BookClassifier.Binary
 {
     internal class Classifier : ClassifierBase<TestBook>
     {
+        private readonly object lockObject = new object();
+
         public Classifier()
         {
             TestData = TestSetReader.Read(TestDataFile);
@@ -38,17 +40,20 @@ namespace Rb.BookClassifier.Binary
 
         protected override List<TestBook> GetTrainSet(int percentage)
         {
-            var fillPercentage = percentage / 100.0;
-            var trainSet = new List<TestBook>();
+            lock (lockObject)
+            {
+                var fillPercentage = percentage / 100.0;
+                var trainSet = new List<TestBook>();
 
-            var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
-            var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
-            trainSet.AddRange(positiv.Shuffle().Take((int)(positiv.Count * fillPercentage)));
-            trainSet.AddRange(negativ.Shuffle().Take((int)(negativ.Count * fillPercentage)));
-            //trainSet.AddRange(positiv.Take((int)(positiv.Count * fillPercentage)));
-            //trainSet.AddRange(negativ.Take((int)(negativ.Count * fillPercentage)));
+                var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
+                var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
+                trainSet.AddRange(positiv.Shuffle().Take((int)(positiv.Count * fillPercentage)));
+                trainSet.AddRange(negativ.Shuffle().Take((int)(negativ.Count * fillPercentage)));
+                //trainSet.AddRange(positiv.Take((int)(positiv.Count * fillPercentage)));
+                //trainSet.AddRange(negativ.Take((int)(negativ.Count * fillPercentage)));
 
-            return trainSet;
+                return trainSet;
+            }
         }
 
         protected override LearningSettings GetLearningSettings()

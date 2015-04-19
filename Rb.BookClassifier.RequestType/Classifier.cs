@@ -11,6 +11,8 @@ namespace Rb.BookClassifier.RequestType
 {
     internal class Classifier : ClassifierBase<TestBook>
     {
+        private readonly object lockObject = new object();
+
         public Classifier()
         {
             TestData = TestSetReader.Read(TestDataFile);
@@ -52,10 +54,13 @@ namespace Rb.BookClassifier.RequestType
 
         protected override List<TestBook> GetTrainSet(int percentage)
         {
-            var fillPercentage = percentage / 100.0;
-            var trainSet = TestData.Shuffle().Take((int) (TestData.Count * fillPercentage)).ToList();
-
-            return trainSet;
+            lock (lockObject)
+            {
+                var fillPercentage = percentage / 100.0;
+                var takeCount = (int)(TestData.Count * fillPercentage);
+                var trainSet = TestData.Shuffle().Take(takeCount).ToList();
+                return trainSet;
+            }
         }
     }
 }
