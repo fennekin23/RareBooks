@@ -6,9 +6,7 @@ namespace Rb.BookClassifier.Common.Snippet
     {
         string Author { get; set; }
 
-        bool IsMoreInfoExists { get; set; }
-
-        List<ISnippetData> Snippets { get; set; }
+        List<ISnippetData> Data { get; set; }
 
         string Title { get; set; }
 

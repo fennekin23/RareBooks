@@ -1,6 +1,6 @@
 ﻿namespace Rb.BookClassifier.Common.Book
 {
-    public interface ITestBook
+    public interface IBook
     {
         string Annotation { get; set; }
 

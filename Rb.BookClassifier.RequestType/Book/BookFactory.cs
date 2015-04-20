@@ -3,9 +3,9 @@ using Rb.BookClassifier.Common.Reader;
 
 namespace Rb.BookClassifier.RequestType.Book
 {
-    internal class TestBookFactory : TestSetFactory, ITestSetFactory<TestBook>
+    internal class BookFactory : TestSetFactory, ITestSetFactory<Book>
     {
-        public TestBook Create(ExcelWorksheet worksheet, int row)
+        public Book Create(ExcelWorksheet worksheet, int row)
         {
             var address = new ExcelAddress(worksheet.Cells[row, 1].FullAddress);
             var testSetItem = GetTestSetItem(worksheet.Workbook, address.Start.Row);
@@ -18,7 +18,7 @@ namespace Rb.BookClassifier.RequestType.Book
                 worksheet.Cells[row, 5].GetValue<bool>()
             };
 
-            return new TestBook
+            return new Book
             {
                 Annotation = testSetItem.Annotation,
                 Author = testSetItem.Author,

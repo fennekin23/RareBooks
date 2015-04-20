@@ -31,11 +31,11 @@ namespace Rb.BookClassifier.Common.Snippet
             const int maxSnippetsCount = 10;
             var result = new List<double>();
 
-            if (snippet.Snippets.Count < maxSnippetsCount)
+            if (snippet.Data.Count < maxSnippetsCount)
             {
                 var snippetDataMock = new SnippetDataMock();
                 var dimensionsCount = GetSnippetDataVector(snippetDataMock, "", "", 0).Count;
-                result.AddRange(GetEmptySnippetDataVector(maxSnippetsCount - snippet.Snippets.Count, dimensionsCount));
+                result.AddRange(GetEmptySnippetDataVector(maxSnippetsCount - snippet.Data.Count, dimensionsCount));
             }
 
             return result;
@@ -105,7 +105,7 @@ namespace Rb.BookClassifier.Common.Snippet
         {
             var result = new List<double>();
 
-            foreach (var snippetData in snippet.Snippets)
+            foreach (var snippetData in snippet.Data)
             {
                 var snippetDataVector = GetSnippetDataVector(snippetData, snippet.Author, snippet.Title, snippet.Year);
                 result.AddRange(snippetDataVector);

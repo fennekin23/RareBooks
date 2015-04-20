@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Rb.BookClassifier.Common.Book;
 using Rb.BookClassifier.Common.Classifier;
 using Rb.BookClassifier.Common.Neural.Settings;
 using Rb.BookClassifier.RequestType.Book;
@@ -9,7 +10,7 @@ using Rb.Common;
 
 namespace Rb.BookClassifier.RequestType
 {
-    internal class Classifier : ClassifierBase<TestBook>
+    internal class Classifier : ClassifierBase<Book.Book>
     {
         private readonly object lockObject = new object();
 
@@ -17,8 +18,8 @@ namespace Rb.BookClassifier.RequestType
         {
             var reader = new TestSetReader();
             TestData = reader.Read(TestDataFile, "RequestTypeClassifier");
-            var ranges = new TestBookRanges(TestData);
-            var vectorizer = new TestBookVectorizer(ranges);
+            var ranges = new BookRanges();
+            var vectorizer = new BookVectorizer(ranges);
             TestCaseFactory = new TestCaseFactory(vectorizer);
 
             Console.WriteLine("Test set count: {0}", TestData.Count);
@@ -39,7 +40,7 @@ namespace Rb.BookClassifier.RequestType
             //return new StopConditions(StopType.Error, maxMainSquareError: 1e-4);
         }
 
-        protected override List<TestBook> GetTrainSet(int percentage)
+        protected override List<Book.Book> GetTrainSet(int percentage)
         {
             lock (lockObject)
             {

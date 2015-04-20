@@ -1,12 +1,10 @@
 ﻿using System.Collections.Generic;
 using Rb.BookClassifier.Common.Snippet;
 
-namespace Rb.BookClassifier.Snippet.Snippet
+namespace Rb.Classifier.System.Snippet
 {
     internal class Snippet : ISnippet
     {
-        public bool IsMoreInfoExists { get; set; }
-
         public string Author { get; set; }
 
         public List<ISnippetData> Data { get; set; }

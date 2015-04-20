@@ -1,18 +1,18 @@
 ﻿using Rb.BookClassifier.Common.Book;
 
-namespace Rb.BookClassifier.Binary.Book
+namespace Rb.BookClassifier.RequestType.Book
 {
-    internal class TestBook : ITestBook
+    public class Book : IBook
     {
-        public bool IsMoreInfoExists { get; set; }
+        public bool[] RequestTypes { get; set; }
 
         public string Annotation { get; set; }
 
         public string Author { get; set; }
 
-        public int InternalId { get; set; }
-
         public bool IsBbkExists { get; set; }
+
+        public int InternalId { get; set; }
 
         public int Language { get; set; }
 

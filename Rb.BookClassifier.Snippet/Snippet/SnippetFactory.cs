@@ -9,7 +9,7 @@ using Rb.Data.Entities;
 
 namespace Rb.BookClassifier.Snippet.Snippet
 {
-    internal class TestSnippetFactory : ITestSetFactory<Snippet>
+    internal class SnippetFactory : ITestSetFactory<Snippet>
     {
         private static readonly Dictionary<RequestType, int> requestTypeToColumnMap = new Dictionary<RequestType, int>
         {
@@ -47,7 +47,7 @@ namespace Rb.BookClassifier.Snippet.Snippet
             {
                 Author = book.Author,
                 IsMoreInfoExists = isMoreInfoExists,
-                Snippets = GetSnippetDatas(internalBookId, requestType),
+                Data = GetSnippetDatas(internalBookId, requestType),
                 Title = book.Title,
                 Year = book.PublishYear
             };

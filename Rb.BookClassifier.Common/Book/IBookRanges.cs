@@ -2,7 +2,7 @@
 
 namespace Rb.BookClassifier.Common.Book
 {
-    public interface ITestBookRanges
+    public interface IBookRanges
     {
         Range Author { get; }
 

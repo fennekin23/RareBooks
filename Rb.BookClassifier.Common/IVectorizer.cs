@@ -2,6 +2,6 @@
 {
     public interface IVectorizer<T>
     {
-        double[] GetVector(T snippet);
+        double[] GetVector(T item);
     }
 }

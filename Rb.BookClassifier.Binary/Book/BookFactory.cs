@@ -3,16 +3,16 @@ using Rb.BookClassifier.Common.Reader;
 
 namespace Rb.BookClassifier.Binary.Book
 {
-    internal class TestBookFactory : TestSetFactory, ITestSetFactory<TestBook>
+    internal class BookFactory : TestSetFactory, ITestSetFactory<Book>
     {
-        public TestBook Create(ExcelWorksheet worksheet, int row)
+        public Book Create(ExcelWorksheet worksheet, int row)
         {
             var address = new ExcelAddress(worksheet.Cells[row, 1].FullAddress);
             var testSetItem = GetTestSetItem(worksheet.Workbook, address.Start.Row);
 
             var isMoreInfoExists = worksheet.Cells[row, 2].GetValue<bool>();
 
-            return new TestBook
+            return new Book
             {
                 Annotation = testSetItem.Annotation,
                 Author = testSetItem.Author,

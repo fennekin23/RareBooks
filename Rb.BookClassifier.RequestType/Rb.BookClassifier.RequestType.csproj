@@ -44,10 +44,9 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book\TestBook.cs" />
-    <Compile Include="Book\TestBookFactory.cs" />
-    <Compile Include="Book\TestBookRanges.cs" />
-    <Compile Include="Book\TestBookVectorizer.cs" />
+    <Compile Include="Book\Book.cs" />
+    <Compile Include="Book\BookFactory.cs" />
+    <Compile Include="Book\BookVectorizer.cs" />
     <Compile Include="Book\TestSetReader.cs" />
     <Compile Include="Classifier.cs" />
     <Compile Include="Neural\TestCaseFactory.cs" />

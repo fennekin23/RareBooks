@@ -44,6 +44,7 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -58,8 +59,7 @@
     <Compile Include="Snippet\Snippet.cs" />
     <Compile Include="Snippet\TestSetReader.cs" />
     <Compile Include="Snippet\SnippetData.cs" />
-    <Compile Include="Snippet\TestSnippetFactory.cs" />
-    <Compile Include="Snippet\SnippetRanges.cs" />
+    <Compile Include="Snippet\SnippetFactory.cs" />
     <Compile Include="Snippet\SnippetVectorizer.cs" />
   </ItemGroup>
   <ItemGroup>

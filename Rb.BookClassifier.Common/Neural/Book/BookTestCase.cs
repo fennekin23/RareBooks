@@ -3,7 +3,7 @@
 namespace Rb.BookClassifier.Common.Neural
 {
     public class BookTestCase<T> : ITestCase<T>
-        where T : ITestBook
+        where T : IBook
     {
         public double[] Input { get; set; }
 

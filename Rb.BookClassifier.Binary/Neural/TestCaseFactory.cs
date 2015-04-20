@@ -1,22 +1,21 @@
-﻿using Rb.BookClassifier.Binary.Book;
-using Rb.BookClassifier.Common;
+﻿using Rb.BookClassifier.Common;
 using Rb.BookClassifier.Common.Neural;
 using Rb.Common;
 
 namespace Rb.BookClassifier.Binary.Neural
 {
-    internal class TestCaseFactory : ITestCaseFactory<TestBook>
+    internal class TestCaseFactory : ITestCaseFactory<Book.Book>
     {
-        private readonly IVectorizer<TestBook> vectorizer;
+        private readonly IVectorizer<Book.Book> vectorizer;
 
-        public TestCaseFactory(IVectorizer<TestBook> vectorizer)
+        public TestCaseFactory(IVectorizer<Book.Book> vectorizer)
         {
             this.vectorizer = vectorizer;
         }
 
-        public ITestCase<TestBook> Create(TestBook book)
+        public ITestCase<Book.Book> Create(Book.Book book)
         {
-            var testCase = new BookTestCase<TestBook>
+            var testCase = new BookTestCase<Book.Book>
             {
                 Input = vectorizer.GetVector(book),
                 Output = new[] { book.IsMoreInfoExists.ToDouble() },

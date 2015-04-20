@@ -2,14 +2,14 @@
 
 namespace Rb.BookClassifier.Binary.Book
 {
-    internal class TestBookVectorizer : TestBookVectorizer<TestBook, TestBookRanges>
+    internal class BookVectorizer : BookVectorizer<Book, BookRanges>
     {
-        public TestBookVectorizer(TestBookRanges ranges)
+        public BookVectorizer(BookRanges ranges)
             : base(ranges)
         {
         }
 
-        public override double[] GetVector(TestBook snippet)
+        public override double[] GetVector(Book snippet)
         {
             var result = GetBaseVector(snippet);
             return result.ToArray();

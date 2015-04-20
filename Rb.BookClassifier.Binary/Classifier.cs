@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Rb.BookClassifier.Binary.Book;
 using Rb.BookClassifier.Binary.Neural;
+using Rb.BookClassifier.Common.Book;
 using Rb.BookClassifier.Common.Classifier;
 using Rb.BookClassifier.Common.Neural.Settings;
 using Rb.Common;
 
 namespace Rb.BookClassifier.Binary
 {
-    internal class Classifier : ClassifierBase<TestBook>
+    internal class Classifier : ClassifierBase<Book.Book>
     {
         private readonly object lockObject = new object();
 
@@ -17,8 +18,8 @@ namespace Rb.BookClassifier.Binary
         {
             var reader = new TestSetReader();
             TestData = reader.Read(TestDataFile, "BinaryClassifier");
-            var ranges = new TestBookRanges(TestData);
-            var vectorizer = new TestBookVectorizer(ranges);
+            var ranges = new BookRanges();
+            var vectorizer = new BookVectorizer(ranges);
             TestCaseFactory = new TestCaseFactory(vectorizer);
 
             Console.WriteLine("Test set count: {0}", TestData.Count);
@@ -38,12 +39,12 @@ namespace Rb.BookClassifier.Binary
                 TimeSpan.FromSeconds(15));
         }
 
-        protected override List<TestBook> GetTrainSet(int percentage)
+        protected override List<Book.Book> GetTrainSet(int percentage)
         {
             lock (lockObject)
             {
                 var fillPercentage = percentage / 100.0;
-                var trainSet = new List<TestBook>();
+                var trainSet = new List<Book.Book>();
 
                 var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
                 var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();

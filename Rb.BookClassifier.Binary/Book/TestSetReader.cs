@@ -2,10 +2,10 @@
 
 namespace Rb.BookClassifier.Binary.Book
 {
-    internal class TestSetReader : TestSetReader<TestBook>
+    internal class TestSetReader : TestSetReader<Book>
     {
         public TestSetReader()
-            : base(new TestBookFactory())
+            : base(new BookFactory())
         {
         }
     }

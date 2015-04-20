@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using Rb.BookClassifier.Common.Classifier;
 using Rb.BookClassifier.Common.Neural.Settings;
+using Rb.BookClassifier.Common.Snippet;
 using Rb.BookClassifier.Snippet.Neural;
-using Rb.Common;
 using Rb.BookClassifier.Snippet.Snippet;
+using Rb.Common;
 
 namespace Rb.BookClassifier.Snippet
 {
@@ -17,7 +18,7 @@ namespace Rb.BookClassifier.Snippet
         {
             var reader = new TestSetReader();
             TestData = reader.Read(TestDataFile, "SnippetClassifier");
-            var ranges = new SnippetRanges(TestData);
+            var ranges = new SnippetRanges();
             var vectorizer = new SnippetVectorizer(ranges);
             TestCaseFactory = new TestCaseFactory(vectorizer);
 
@@ -33,9 +34,9 @@ namespace Rb.BookClassifier.Snippet
         {
             return new StopConditions(
                 StopType.Any,
-                maxEpochCount: 8000,
-                maxMainSquareError: 1e-4,
-                maxTimeForLearning: TimeSpan.FromSeconds(30));
+                8000,
+                1e-4,
+                TimeSpan.FromSeconds(30));
         }
 
         protected override List<Snippet.Snippet> GetTrainSet(int percentage)
@@ -47,8 +48,8 @@ namespace Rb.BookClassifier.Snippet
 
                 var positiv = TestData.Where(i => i.IsMoreInfoExists).ToList();
                 var negativ = TestData.Where(i => !i.IsMoreInfoExists).ToList();
-                trainSet.AddRange(positiv.Shuffle().Take((int)(positiv.Count * fillPercentage)));
-                trainSet.AddRange(negativ.Shuffle().Take((int)(negativ.Count * fillPercentage)));
+                trainSet.AddRange(positiv.Shuffle().Take((int) (positiv.Count * fillPercentage)));
+                trainSet.AddRange(negativ.Shuffle().Take((int) (negativ.Count * fillPercentage)));
 
                 return trainSet;
             }

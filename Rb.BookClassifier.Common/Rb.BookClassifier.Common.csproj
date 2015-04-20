@@ -55,10 +55,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Book\ITestBook.cs" />
-    <Compile Include="Book\ITestBookRanges.cs" />
-    <Compile Include="Book\TestBookRangesBase.cs" />
-    <Compile Include="Book\TestBookVectorizer.cs" />
+    <Compile Include="Book\IBook.cs" />
+    <Compile Include="Book\IBookRanges.cs" />
+    <Compile Include="Book\BookRanges.cs" />
+    <Compile Include="Book\BookVectorizer.cs" />
     <Compile Include="Classifier\ClassifierBase.cs" />
     <Compile Include="IVectorizer.cs" />
     <Compile Include="Neural\ITestCase.cs" />
@@ -80,7 +80,7 @@
     <Compile Include="Snippet\ISnippetData.cs" />
     <Compile Include="Snippet\ISnippetRanges.cs" />
     <Compile Include="Snippet\Levinstein.cs" />
-    <Compile Include="Snippet\SnippetRangesBase.cs" />
+    <Compile Include="Snippet\SnippetRanges.cs" />
     <Compile Include="Snippet\SnippetVectorizer.cs" />
     <Compile Include="TestSet\ITestSetItem.cs" />
     <Compile Include="TestSet\TestSetItem.cs" />
