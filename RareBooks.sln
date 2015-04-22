@@ -43,7 +43,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.BookClassifier.Snippet",
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.TestSetLinkUtility", "Rb.TestSetLinkUtility\Rb.TestSetLinkUtility.csproj", "{1B3D5C42-4AFA-4BF4-ACA3-8F5B584F6E9E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.Classifier.System", "Rb.Classifier.System\Rb.Classifier.System.csproj", "{1735285E-08E3-4BC3-B2B0-DB954136857C}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Rb.System", "Rb.Classifier.System\Rb.System.csproj", "{1735285E-08E3-4BC3-B2B0-DB954136857C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

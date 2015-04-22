@@ -5,7 +5,7 @@ using Rb.Common.Enums;
 using Rb.Data;
 using Rb.Data.Entities;
 
-namespace Rb.Classifier.System.Snippet
+namespace Rb.System.Snippet
 {
     internal class Factory
     {

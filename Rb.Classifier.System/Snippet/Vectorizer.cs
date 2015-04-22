@@ -1,6 +1,6 @@
 ﻿using Rb.BookClassifier.Common.Snippet;
 
-namespace Rb.Classifier.System.Snippet
+namespace Rb.System.Snippet
 {
     internal class Vectorizer : SnippetVectorizer<Snippet, SnippetRanges>
     {

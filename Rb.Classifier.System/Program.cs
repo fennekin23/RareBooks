@@ -1,98 +1,75 @@
 ﻿using System;
 using System.Collections.Generic;
-using AForge.Neuro;
-using Rb.Common.Enums;
+using System.Linq;
+using System.Threading;
+using Rb.Data;
+using Rb.System.Book;
+using Rb.System.Classifier;
 
-namespace Rb.Classifier.System
+namespace Rb.System
 {
     internal class Program
     {
-        private static double[] Compute(Network network, double[] input)
+        private static List<int> GetInternalIds()
         {
-            var result = network.Compute(input);
-
-            for (var i = 0; i < result.Length; i++)
+            List<int> bookInternalIds;
+            using (var repository = new GenericRepository<Data.Entities.Book>())
             {
-                result[i] = Math.Round(result[i]);
+                bookInternalIds = repository.Items.Select(i => i.InternalId).ToList();
             }
 
-            return result;
-        }
-
-        private static bool GetBinaryResult(Book.Book book)
-        {
-            const string binaryNetworkSettings = "../../../Rb.BookClassifier.Binary/bin/networkSettings.txt";
-
-            var vector = GetBookVector(book);
-            var network = GetNetwork(binaryNetworkSettings);
-            var result = Compute(network, vector);
-
-            return Math.Abs(result[0]) > 0.5;
-        }
-
-        private static double[] GetBookVector(Book.Book book)
-        {
-            var vectorizer = new Book.Vectorizer();
-            return vectorizer.GetVector(book);
-        }
-
-        private static ActivationNetwork GetNetwork(string path)
-        {
-            return (ActivationNetwork) Network.Load(path);
-        }
-
-        private static RequestType GetRequestTypeResult(Book.Book book)
-        {
-            const string requestTypeNetworkSettings = "../../../Rb.BookClassifier.RequestType/bin/networkSettings.txt";
-
-            var outputToRequestTypeMap = new Dictionary<int, RequestType>
-            {
-                { 0, RequestType.NoLangExactTitle },
-                { 1, RequestType.NoLangTitleAllInTitle },
-                { 2, RequestType.NoLangTitleYear },
-                { 3, RequestType.NoLangExactTitleAuthor }
-            };
-
-            var vector = GetBookVector(book);
-            var network = GetNetwork(requestTypeNetworkSettings);
-            var result = Compute(network, vector);
-
-            var index = Array.FindIndex(result, r => r > 0);
-
-            return index != -1 ? outputToRequestTypeMap[index] : RequestType.Unknown;
-        }
-
-        private static bool GetSnippetResult(Book.Book book, RequestType requestType)
-        {
-            const string snippetNetworkSettings = "../../../Rb.BookClassifier.Snippet/bin/networkSettings.txt";
-
-            var snippet = Snippet.Factory.Read(book, requestType);
-            var vectorizer = new Snippet.Vectorizer();
-            var vector = vectorizer.GetVector(snippet);
-            var network = GetNetwork(snippetNetworkSettings);
-            var result = Compute(network, vector);
-
-            return Math.Abs(result[0]) > 0.5;
+            return bookInternalIds;
         }
 
         private static void Main()
         {
-            const int bookId = 1056054;
-            var book = Book.Factory.Read(bookId);
-
-            var binaryResult = GetBinaryResult(book);
-
-            if (binaryResult)
-            {
-                var requestTypeResult = GetRequestTypeResult(book);
-
-                if (requestTypeResult != RequestType.Unknown)
-                {
-                    var snippetResult = GetSnippetResult(book, requestTypeResult);
-                }
-            }
+            Process();
 
             Console.ReadLine();
+        }
+
+        private static void Process()
+        {
+            var internalIds = GetInternalIds();
+
+            var logger = new Logger();
+
+            var binaryClassifier = new BinaryClassifier();
+            var requestTypeClassifier = new RequestTypeClassfier();
+            var snippetClassifier = new SnippetClassfier();
+
+            foreach (var internalId in internalIds)
+            {
+                var book = Factory.Read(internalId);
+
+                logger.LogBook(book);
+
+                var binaryResult = binaryClassifier.GetResult(book);
+
+                logger.LogBinaryResult(binaryResult);
+
+                if (binaryResult)
+                {
+                    var requestTypeResult = requestTypeClassifier.GetResult(book);
+
+                    logger.LogRequestTypeResult(requestTypeResult);
+
+                    if (requestTypeResult != Common.Enums.RequestType.Unknown)
+                    {
+                        var snippet = Snippet.Factory.Read(book, requestTypeResult);
+
+                        logger.LogSnippet(snippet);
+
+                        var snippetResult = snippetClassifier.GetResult(snippet);
+
+                        logger.LogSnippetResult(snippetResult);
+                    }
+                }
+
+                logger.LogEndOfCase();
+
+                Thread.Sleep(100);
+            }
         }
     }
 }

@@ -1,6 +1,6 @@
 ﻿using Rb.BookClassifier.Common.Book;
 
-namespace Rb.Classifier.System.Book
+namespace Rb.System.Book
 {
     internal class Vectorizer : BookVectorizer<Book, BookRanges>
     {

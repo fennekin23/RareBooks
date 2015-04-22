@@ -59,10 +59,13 @@ namespace Rb.BookClassifier.Common.Book
             var minRoundedYear = range.Min.RoundOff(yearPeriod);
             var maxRoundedYear = range.Max.RoundOff(yearPeriod);
             var numberOfBits = ((maxRoundedYear - minRoundedYear) / yearPeriod) + 1;
-            var yearPeriodBitNumber = (year - minRoundedYear) / yearPeriod;
-
             var yearVector = new double[numberOfBits];
-            yearVector[yearPeriodBitNumber] = 1;
+
+            if (year > 1400)
+            {
+                var yearPeriodBitNumber = (year - minRoundedYear) / yearPeriod;
+                yearVector[yearPeriodBitNumber] = 1;
+            }
 
             return yearVector;
         }

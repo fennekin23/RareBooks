@@ -1,15 +1,14 @@
 ﻿using System;
 using System.Linq;
 using Rb.Data;
-using BookEntity = Rb.Data.Entities.Book;
 
-namespace Rb.Classifier.System.Book
+namespace Rb.System.Book
 {
     internal class Factory
     {
         public static Book Read(int internalId)
         {
-            using (var repository = new GenericRepository<BookEntity>())
+            using (var repository = new GenericRepository<Data.Entities.Book>())
             {
                 var data = repository.Items.FirstOrDefault(i => i.InternalId == internalId);
                 if (data != null)
